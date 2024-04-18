@@ -1,9 +1,8 @@
 import React from "react";
 import './style.css';
 import { Link } from "react-router-dom";
-import Navbar from '../Navbar/Navbar';
-
-const Header = () => {
+import Navbar from '../../components/Navbar/Navbar';
+const HomePage = () => {
   return (
     <header className="site-header clearfix">
       <Navbar />
@@ -27,4 +26,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HomePage;

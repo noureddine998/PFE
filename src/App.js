@@ -3,9 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 
-import Header from './components/Header/header';
-import Login from './components/AdminLogin/Login';
-import AdminAddCandidate from "./components/adminAddCandidate/Index";
+
+import AdminPage from './Pages/AdminPage/AdminPage';
+import AdminAddCandidate from "./components/adminAddCandidate/AdminAddCandidate";
+import HomePage from './Pages/HomePage/HomePage';
 
 function App() {
   return (
@@ -14,9 +15,11 @@ function App() {
        
         
         <Routes>
-        <Route exact path='/' element={<div className="background-container"><Header /></div>} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/adminAddCandidate' element={<div className="page-with-background"><AdminAddCandidate /></div>} />
+        <Route exact path='/' element={<div className="background-container"><HomePage /></div>} />
+          <Route path='/adminAddCandidate' element={<div><AdminAddCandidate /></div>} />
+          <Route path='/AdminPage' element={<div><AdminPage /></div>} />
+          
+
         </Routes>
       </div>
     </BrowserRouter>
