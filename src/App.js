@@ -7,6 +7,7 @@ import './App.css';
 import AdminPage from './Pages/AdminPage/AdminPage';
 import AdminAddCandidate from "./components/adminAddCandidate/AdminAddCandidate";
 import HomePage from './Pages/HomePage/HomePage';
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path='/' element={<div className="background-container"><HomePage /></div>} />
           <Route path='/adminAddCandidate' element={<div><AdminAddCandidate /></div>} />
           <Route path='/AdminPage' element={<div><AdminPage /></div>} />
+          <Route path='/AdminLogin' element={<div><AdminLogin /></div>} />
           
 
         </Routes>
