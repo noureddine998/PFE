@@ -7,8 +7,8 @@ const AddVoter = () => {
   
 
   return (
-    <div className="form-container">
-      <h1>Add Voter</h1>
+    <div className="form-addvoter">
+      <h1 className='add'>Add Voter</h1>
       <form >
         <label>
           Email:

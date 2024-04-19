@@ -1,7 +1,7 @@
 /* AddVoter.css */
 
 
-.form-container {
+.form-addvoter {
     background: rgb(94, 201, 228);
     padding: 2em;
     border-radius: 10px;
@@ -13,7 +13,7 @@
      
   }
   
-  h1 {
+  add {
     text-align: center;
     color: #333;
   }
