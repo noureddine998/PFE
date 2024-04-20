@@ -9,13 +9,12 @@ contract MoroccanElections {
 
     struct Voter {
         uint age;
-        string cin;
+        string cinHash;
         string region;
         string localdistrict;
         bool hasVotedLocal;
         bool hasVotedRegional;
-        bool isRegistred;
-    }
+            }
 
     struct Candidate {
         string fullname;
@@ -35,6 +34,7 @@ contract MoroccanElections {
         mapping(string => Candidate) candidates;
 		Candidate[] candidatesTable;
         mapping(address => Voter) voters;
+        mapping(bytes32 => bool) registeredCINs;
 		
 
     }
@@ -100,21 +100,19 @@ function createDistrict(districtType dsType, string memory districtName, uint se
 
     
 
-    uint numberOfVoters = 0;
 
-    function voterRegistration(uint _age, string memory _cin, string memory _region, string memory _localDistrict) public{
+    function voterRegistration(uint _age, string memory cin, string memory _region, string memory _localDistrict) public{
     require(_age > 18, "Age must be greater than eighteen");
-    require(localDistricts[_localDistrict].voters[msg.sender].isRegistred == false,"You are not registred");
-    
+        bytes32 cinHash = keccak256(abi.encodePacked(cin));
+        require(!localDistricts[_localDistrict].registeredCINs[cinHash], "Voter with this CIN already registered.");
+        require(!regionalDistricts[_region].registeredCINs[cinHash], "Voter with this CIN already registered.");
 
-        localDistricts[_localDistrict].voters[msg.sender] = Voter(_age, _cin, _region, _localDistrict, false, false, true);
+        localDistricts[_localDistrict].registeredCINs[cinHash] = true;
 		localDistricts[_localDistrict].numberOfVoters++;
-        localDistricts[_localDistrict].voters[msg.sender].isRegistred = true;
 
-        regionalDistricts[_region].voters[msg.sender] = Voter(_age, _cin, _region, _localDistrict, false, false, true);
-		regionalDistricts[_region].numberOfVoters++;
-        regionalDistricts[_region].voters[msg.sender].isRegistred = true;
-    
+		
+        localDistricts[_localDistrict].registeredCINs[cinHash] = true;
+        regionalDistricts[_region].numberOfVoters++;
 }
 
 
@@ -217,15 +215,6 @@ function getDistrictInfo(string memory districtName, districtType dsType) public
     return (district.name, district.seatsToWin, district.numberOfVoters);
 }
 
-function getVoterInfo(address voterAddress, string memory districtName, districtType dsType) public view returns (uint, string memory, bool, bool, bool) {
-    Voter memory voter;
-    if (dsType == districtType.local) {
-        voter = localDistricts[districtName].voters[voterAddress];
-    } else {
-        voter = regionalDistricts[districtName].voters[voterAddress];
-    }
-    return (voter.age, voter.cin, voter.hasVotedLocal, voter.hasVotedRegional, voter.isRegistred);
-}
 
 function getCandidateInfo(string memory candidateFullName, string memory districtName, districtType dsType) public view returns (string memory, uint, Gender, string memory, uint, uint) {
     Candidate memory candidate;
