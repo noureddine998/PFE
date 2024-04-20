@@ -11,6 +11,7 @@ import LoginForm from './components/LoginUser/LoginUser';
 import DistrictsPage from './Pages/DistrictList/DistrictList';
 import CandidatesList from './Pages/CandidatesList/CandidatesList';
 import VoterList from './Pages/VoterList/VoterList';
+import AddVoter from './components/AddVoters/AddVoter';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/CandidatesList' element={<CandidatesList />} />
           <Route path='/VoterList' element={<VoterList />} />
+          <Route path='/addVoter' element={<AddVoter />} />
         </Routes>
       </div>
     </BrowserRouter>

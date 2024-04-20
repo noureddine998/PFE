@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AddVoter.css';
 
+const AddVoter = ({ onSubmit }) => {
+  const [cin, setCIN] = useState('');
+  const [email, setEmail] = useState('');
 
+  // Form submission handler
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Construct the voter data
+    const voterData = {
+      cin,
+      email
+    };
 
-const AddVoter = () => {
-  
+    onSubmit(voterData);
+  };
 
+  // Corrected return statement
   return (
-    <div className="form-addvoter">
-      <h1 className='add'>Add Voter</h1>
-      <form >
+    <div>
+      <form onSubmit={handleSubmit} className="form-voter">
+        <label>
+          cin:
+          <input type='text' value={cin} onChange={e => setCIN(e.target.value)} required/>
+        </label>
         <label>
           Email:
-        <label>
-          
-          <input type='Email' className='email' />
+          <input type='email' value={email} onChange={e => setEmail(e.target.value)} required/>
         </label>
-        </label>
-        
-        
         <button type="submit">Add</button>
       </form>
-      
     </div>
   );
 };

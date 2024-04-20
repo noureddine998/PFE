@@ -36,6 +36,20 @@ const regions = [
   "Dakhla-Oued Ed-Dahab"
 ];
 
+const parties = [
+  "Rassemblement National des Indépendants (RNI)",
+  "Parti de la Justice et du Développement (PJD)",
+  "Parti Authenticité et Modernité (PAM)",
+  "Parti de l'Istiqlal (PI)",
+  "Union Socialiste des Forces Populaires (USFP)",
+  "Parti du Progrès et du Socialisme (PPS)",
+  "Mouvement Populaire (MP)",
+  "Union Constitutionnelle (UC)",
+  "Mouvement Démocratique et Social (MDS)",
+  "Front des Forces Démocratiques (FFD)",
+  "Fédération de la Gauche Démocratique (FGD)"
+];
+
 // Enum definitions to match the smart contract
 const Gender = {
   male: 'male',
@@ -101,7 +115,10 @@ function AddCandidateForm({ onSubmit }) {
       </label>
       <label>
         Party:
-        <input type="text" value={party} onChange={e => setParty(e.target.value)} required />
+        <select value={party} onChange={e => setParty(e.target.value)} required>
+          <option value="">Select Party</option>
+          {parties.map(party => <option key={party} value={party}>{party}</option>)}
+        </select>
       </label>
       <label>
         District Type:

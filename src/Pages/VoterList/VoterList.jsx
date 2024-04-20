@@ -1,23 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './VoterList.css';
 import '../../components/VerticalNav/VerticalNav.css';
-import VotersList from '../../components/AddVoters/AddVoter'; // import your Create District component
+import  AddVoter  from '../../components/AddVoters/AddVoter'; // Corrected import
 import VerticalNav from '../../components/VerticalNav/VerticalNav';
+
 const VoterList = () => {
-  // Dummy data for districts list
- 
+  const [voters, setVoters] = useState([]);
+
+  const handleNewVoter = (voterData) => {
+    setVoters([...voters, voterData]);
+  };
 
   return (
     <div className="admin-page-container">
-      <VerticalNav /> {/* Your vertical navigation component */}
+      <VerticalNav />
       <div className="main-content">
-        <div className='center'>
-
-        
-        <header className="page-header">Voters</header>
-        
-          <VotersList /> {/* Your existing Create District component */}
+        <div className="voters-content"> {/* Adjusted for clearer division */}
+          <header className="page-header">Voters</header>
+          <table>
+            <thead>
+              <tr>
+                <th>CIN</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {voters.map((voter, index) => (
+                <tr key={index}>
+                  <td>{voter.cin}</td>
+                  <td>{voter.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+        <AddVoter onSubmit={handleNewVoter}/> 
       </div>
     </div>
   );
