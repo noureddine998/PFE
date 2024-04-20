@@ -1,30 +1,50 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './CandidatesList.css';
 import '../../components/VerticalNav/VerticalNav.css';
 import AddCandidates from '../../components/adminAddCandidate/AdminAddCandidate'; // Fix import path
 import VerticalNav from '../../components/VerticalNav/VerticalNav'; // Fix import path
 
+
+
 const CandidatesList = () => {
-  return (
+
+  const [candidates, setCandidates] = useState([]); // This state holds the list of candidates
+
+
+  // Function to handle new candidate submissions
+  const handleNewCandidate = (candidateData) => {
+    setCandidates([...candidates, candidateData]); // Add new candidate to the list
+  };
+
+return (
     <div className="admin-page-container">
       <VerticalNav />
-      <div className="main-content">
-        <div className='center'>
-          <header className="page-header">Add Candidates</header>
-          <div className="district-panels">
-            <div className="local-districts-panel district-panel">
-              <h2>Local Districts</h2>
-              {/* Local districts will be listed here */}
-            </div>
-            <div className="regional-districts-panel district-panel">
-              <h2>Regional Districts</h2>
-              {/* Regional districts will be listed here */}
-            </div>
-          </div>
-        </div>
-        <div className="create-district-container">
-          <AddCandidates /> {/* Use correct component name */}
-        </div>
+      <AddCandidates onSubmit={handleNewCandidate} />
+      <div className="candidates-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Full Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Party</th>
+              <th>District Type</th>
+              <th>District Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {candidates.map((candidate, index) => (
+              <tr key={index}>
+                <td>{candidate.fullName}</td>
+                <td>{candidate.age}</td>
+                <td>{candidate.gender}</td>
+                <td>{candidate.party}</td>
+                <td>{candidate.districtType}</td>
+                <td>{candidate.districtName}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
