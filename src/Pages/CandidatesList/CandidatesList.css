@@ -1,21 +1,25 @@
 /* CandidatesList.css */
 
 .candidates-table {
-  width: 100%; /* Adjust as needed */
-  border-collapse: collapse; /* Eliminates the space between the borders */
+  width: 90%; /* Adjust as needed */
+  border-collapse: collapse;
+  position: relative;
+  right: 310px;
+  
 }
 
 .candidates-table table {
   width: 100%;
   border: 1px solid #ccc; /* Light grey border */
-  table-layout: fixed; /* This helps with equal spacing of columns */
+  table-layout: fixed;
+  width: 145vh; /* This helps with equal spacing of columns */
 }
 
 .candidates-table th,
 .candidates-table td {
   border: 1px solid #ccc; /* Light grey border for each cell */
   text-align: left;
-  padding: 8px; /* Adjust the padding as needed */
+  padding: 6px; /* Adjust the padding as needed */
   background-color: #f9f9f9; /* Light grey background for each cell */
 }
 

@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './CreateDistrict.css';
 
+// Define DistrictType enum
+const DistrictType = {
+  local: 'local',
+  regional: 'regional'
+};
+
 const constituencies = [
   "Agadir-Ida-Ou-Tanane", "Aïn Chock (Casablanca)", "Al Fida - Mers Sultan (Casablanca)", "Al Hoceïma",
   "Assa-Zag", "Azilal", "Beni Mellal", "Ben Slimane", "Berkane", "Berrechid",
@@ -35,25 +41,28 @@ const regions = [
   "Dakhla-Oued Ed-Dahab"
 ];
 
-const CreateDistrict = () => {
-  const [districtType, setDistrictType] = useState('local');
+const CreateDistrict = ({ onSubmit }) => {
+  const [districtType, setDistrictType] = useState(DistrictType.local); // Default to 'local'
   const [districtName, setDistrictName] = useState('');
   const [seatsToWin, setSeatsToWin] = useState(0);
   const [districtOptions, setDistrictOptions] = useState([]);
 
-  
   useEffect(() => {
-    if (districtType === 'local') {
+    if (districtType === DistrictType.local) {
       setDistrictOptions(constituencies);
-    } else if (districtType === 'regional') {
+    } else if (districtType === DistrictType.regional) {
       setDistrictOptions(regions);
     }
-    setDistrictName(''); // Reset district name when type changes
+    setDistrictName('');
   }, [districtType]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`District Created:\nType: ${districtType}\nName: ${districtName}\nSeats to Win: ${seatsToWin}`);
+    onSubmit({
+      districtType,
+      districtName,
+      seatsToWin
+    });
   };
 
   return (
@@ -63,15 +72,16 @@ const CreateDistrict = () => {
         <label>
           District Type:
           <select value={districtType} onChange={e => setDistrictType(e.target.value)}>
-            <option value="local">Local</option>
-            <option value="regional">Regional</option>
+            <option value={DistrictType.local}>Local</option>
+            <option value={DistrictType.regional}>Regional</option>
           </select>
         </label>
         <label>
           District Name:
           <select value={districtName} onChange={e => setDistrictName(e.target.value)} required>
-            {districtOptions.map((option, index) => (
-              <option key={index} value={option}>{option}</option>
+            <option value="">Select District Name</option>
+            {districtOptions.map((name, index) => (
+              <option key={index} value={name}>{name}</option>
             ))}
           </select>
         </label>

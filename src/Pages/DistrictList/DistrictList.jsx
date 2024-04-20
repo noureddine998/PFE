@@ -1,36 +1,42 @@
-import React from 'react';
-import './DistrictList.css';
-import '../../components/VerticalNav/VerticalNav.css';
-import CreateDistrict from '../../components/CreateDistrict/CreateDistrict'; // import your Create District component
+import React, { useState } from 'react';
+import './DistrictList.css'; // Import the CSS file for styling
+import CreateDistrict from '../../components/CreateDistrict/CreateDistrict';
 import VerticalNav from '../../components/VerticalNav/VerticalNav';
-const DistrictsPage = () => {
-  // Dummy data for districts list
- 
+
+const DistrictList = () => {
+  const [districts, setDistricts] = useState([]); // State to store districts data
+
+  // Function to handle submission of new district
+  const handleNewDistrict = (newDistrict) => {
+    setDistricts([...districts, newDistrict]); // Add the new district to the districts list
+  };
 
   return (
     <div className="admin-page-container">
-      <VerticalNav /> {/* Your vertical navigation component */}
-      <div className="main-content">
-        <div className='center'>
-
-        
-        <header className="page-header">Districts</header>
-        <div className="district-panels">
-      <div className="local-districts-panel district-panel">
-        <h2>Local Districts</h2>
-        {/* Local districts will be listed here */}
-      </div>
-      <div className="regional-districts-panel district-panel">
-        <h2>Regional Districts</h2>
-        {/* Regional districts will be listed here */}
-      </div></div>
-    </div>
-        <div className="create-district-container">
-          <CreateDistrict /> {/* Your existing Create District component */}
-        </div>
+      <VerticalNav />
+      <CreateDistrict onSubmit={handleNewDistrict} />
+      <div className="districts-table">
+        <table>
+          <thead>
+            <tr>
+              <th>District Type</th>
+              <th>District Name</th>
+              <th>Seats To Win</th>
+            </tr>
+          </thead>
+          <tbody>
+            {districts.map((district, index) => (
+              <tr key={index}>
+                <td>{district.districtType}</td>
+                <td>{district.districtName}</td>
+                <td>{district.seatsToWin}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default DistrictsPage;
+export default DistrictList;
