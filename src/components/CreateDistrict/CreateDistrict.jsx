@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './CreateDistrict.css';
-import {regions , constituencies} from '../../data/Districts';
+import { regions, constituencies } from '../../data/Districts';
 import axios from 'axios';
 
-
-// Define DistrictType enum
 const DistrictType = {
   local: 'local',
   regional: 'regional'
 };
+
 const CreateDistrict = ({ onSubmit }) => {
-  const [districtType, setDistrictType] = useState(DistrictType.local); // Default to 'local'
+  const [districtType, setDistrictType] = useState(DistrictType.local);
   const [districtName, setDistrictName] = useState('');
   const [seatsToWin, setSeatsToWin] = useState(0);
   const [districtOptions, setDistrictOptions] = useState([]);
@@ -26,23 +25,20 @@ const CreateDistrict = ({ onSubmit }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
     const data = {
       district_type: districtType,
       district_name: districtName,
       seats_to_win: seatsToWin
     };
     axios.post('http://localhost:8000/api/districts', data)
-    .then(response => {
+      .then(response => {
+        onSubmit(response.data); // Update parent component with new district data
         console.log('Success:', response.data);
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error('Error:', error);
-    });
-    
+      });
   };
-
-
 
   return (
     <div className="form-container">

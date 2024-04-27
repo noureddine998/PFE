@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import './DistrictList.css'; // Import the CSS file for styling
+import './DistrictList.css';
 import CreateDistrict from '../../components/CreateDistrict/CreateDistrict';
 import VerticalNav from '../../components/VerticalNav/VerticalNav';
 
 const DistrictList = () => {
-  const [districts, setDistricts] = useState([]); // State to store districts data
+  const [districts, setDistricts] = useState([]);
 
-  // Function to handle submission of new district
   const handleNewDistrict = (newDistrict) => {
-    setDistricts([...districts, newDistrict]); // Add the new district to the districts list
+    setDistricts([...districts, newDistrict]);
   };
 
   return (
@@ -17,7 +16,7 @@ const DistrictList = () => {
       <CreateDistrict onSubmit={handleNewDistrict} />
       <div className="districts-table">
         <table>
-          <thead>
+        <thead>
             <tr>
               <th>District Type</th>
               <th>District Name</th>
@@ -27,9 +26,9 @@ const DistrictList = () => {
           <tbody>
             {districts.map((district, index) => (
               <tr key={index}>
-                <td>{district.districtType}</td>
-                <td>{district.districtName}</td>
-                <td>{district.seatsToWin}</td>
+                <td>{district.district_type}</td>
+                <td>{district.district_name}</td>
+                <td>{district.seats_to_win}</td>
               </tr>
             ))}
           </tbody>
