@@ -19,7 +19,6 @@ $localDistrict = $_POST['localDistrict'];
 $birthDate = $_POST['birthDate'];
 $gender = $_POST['gender'];
 
-
 $sql = "INSERT INTO voters(firstName, lastName, Email, CIN, Region, LocalDistrict, birthDate, Gender) VALUES ('$firstName', '$lastName', '$emailOrPhone', '$cin', '$region', '$localDistrict', '$birthDate', '$gender')";
 $res = mysqli_query($conn, $sql);
          
