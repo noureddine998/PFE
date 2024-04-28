@@ -82,6 +82,8 @@ body {
   /* Input fields styling */
   input[type="text"],
   input[type="password"],
+  input[type="email"],
+  input[type="tel"],
   select {
     width: 100%; /* Full width */
     padding: 10px;

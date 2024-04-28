@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './LoginUser.css';
 import axios from 'axios';
-import {regions , constituencies} from '../../data/Districts';
-
+import { regions, constituencies } from '../../data/Districts';
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -46,20 +45,21 @@ function LoginForm() {
       {showSignUp && <SignUpForm toggleSignUp={toggleSignUp} />}
     </div>
   );
-
 }
-
 
 function SignUpForm({ toggleSignUp }) {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    emailOrPhone: '',
+    email: '',  // Separate field for email
+    phone: '',  // Separate field for phone
+    password: '',
+    confirmPassword: '',
     birthDate: '',
     gender: '',
     cin: '',
-    region: '',  // Region field
-    localDistrict: ''  // Local District field
+    region: '',
+    localDistrict: ''
   });
 
   const handleInputChange = (event) => {
@@ -70,62 +70,89 @@ function SignUpForm({ toggleSignUp }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = "http://localhost/PFE_V_PHP/voters.php";
-    let fData = new FormData();
-
-    Object.keys(formData).forEach(key => {
-      fData.append(key, formData[key]);
-    });
-
-    axios.post(url, fData)
-      .then(response => alert('Registration successful!'))
-      .catch(error => alert('Error during registration: ' + error.message));
+    const url = "http://localhost/api/register";  // Update this URL to where your Laravel API is hosted
+  
+    const jsonFormData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      phone: formData.phone,
+      password: formData.password,
+      password_confirmation: formData.confirmPassword,  // Laravel expects password_confirmation for validation
+      birthDate: formData.birthDate,
+      gender: formData.gender,
+      cin: formData.cin,
+      region: formData.region,
+      localDistrict: formData.localDistrict
+    };
+  
+    try {
+      const response = await axios.post(url, jsonFormData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      alert('Registration successful! Please check your email to verify your account.');
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('Error during registration: ' + (error.response?.data?.message || error.message));
+    }
   };
   
-    return (
-      <div className="modal" id="signup-modal">
-        <div className="modal-content" id="signup-form">
-          <span className="close-button" onClick={toggleSignUp}>X</span>
-          <form onSubmit={handleSubmit}>
-            <input
-              id="first-name"
-              name="firstName"
-              type="text"
-              placeholder="Prénom"
-              value={formData.firstName}
-              onChange={handleInputChange}
-              required
-            />
-            <input
-              id="last-name"
-              name="lastName"
-              type="text"
-              placeholder="Nom de famille"
-              value={formData.lastName}
-              onChange={handleInputChange}
-              required
-            />
-            <input
-              id="email-or-phone"
-              name="emailOrPhone"
-              type="text"
-              placeholder="Numéro mobile ou e-mail"
-              value={formData.emailOrPhone}
-              onChange={handleInputChange}
-              required
-            />
-            <input
-              id="cin"
-              name="cin"
-              type="text"
-              placeholder="CIN"
-              value={formData.cin}
-              onChange={handleInputChange}
-              required
-            />
-            <select id="region" name="region" value={formData.region} onChange={handleInputChange} required>
+
+  return (
+    <div className="modal" id="signup-modal">
+      <div className="modal-content" id="signup-form">
+        <span className="close-button" onClick={toggleSignUp}>X</span>
+        <form onSubmit={handleSubmit}>
+          <input
+            id="first-name"
+            name="firstName"
+            type="text"
+            placeholder="Prénom"
+            value={formData.firstName}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            id="last-name"
+            name="lastName"
+            type="text"
+            placeholder="Nom de famille"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            required
+          />
+           <input
+            id="email"
+            name="email"
+            type="email"  // Specify type as email for validation
+            placeholder="Adresse e-mail"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            id="phone"
+            name="phone"
+            type="tel"  // Specify type as tel for phone input
+            placeholder="Numéro de téléphone"
+            value={formData.phone}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            id="cin"
+            name="cin"
+            type="text"
+            placeholder="CIN"
+            value={formData.cin}
+            onChange={handleInputChange}
+            required
+          />
+          <select id="region" name="region" value={formData.region} onChange={handleInputChange} required>
             {regions.map((region, index) => (
               <option key={index} value={region}>{region}</option>
             ))}
@@ -135,41 +162,59 @@ function SignUpForm({ toggleSignUp }) {
               <option key={index} value={constituency}>{constituency}</option>
             ))}
           </select>
+          <input
+            id="birth-date"
+            name="birthDate"
+            type="date"
+            value={formData.birthDate}
+            onChange={handleInputChange}
+            required
+          />
+          <div className="gender-selection">
             <input
-              id="birth-date"
-              name="birthDate"
-              type="date"
-              value={formData.birthDate}
+              type="radio"
+              id="female"
+              name="gender"
+              value="female"
+              checked={formData.gender === 'female'}
               onChange={handleInputChange}
-              required
             />
-            <div className="gender-selection">
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                checked={formData.gender === 'female'}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="female">Femme</label>
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={formData.gender === 'male'}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="male">Homme</label>
-            </div>
-            <button type="submit" id="signup-submit">S'inscrire</button>
-          </form>
-        </div>
-      </div>
-    );
-  
-}
+            <label htmlFor="female">Femme</label>
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="male"
+              checked={formData.gender === 'male'}
+              onChange={handleInputChange}
+            />
+            <label htmlFor="male">Homme</label>
 
+                      <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Mot de passe"
+            value={formData.password}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            id="confirm-password"
+            name="confirmPassword"
+            type="password"
+            placeholder="Confirmer le mot de passe"
+            value={formData.confirmPassword}
+            onChange={handleInputChange}
+            required
+          />
+          </div>
+          
+          <button type="submit" id="signup-submit">S'inscrire</button>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 export default LoginForm;
