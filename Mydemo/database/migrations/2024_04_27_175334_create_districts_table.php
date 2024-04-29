@@ -21,10 +21,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Alter the table to add 'district_name' as the primary key
-        Schema::table('districts', function (Blueprint $table) {
-            $table->primary('district_name');
-        });
+    
     }
 
     /**

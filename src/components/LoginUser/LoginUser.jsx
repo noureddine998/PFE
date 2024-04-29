@@ -2,16 +2,33 @@ import React, { useState } from 'react';
 import './LoginUser.css';
 import axios from 'axios';
 import { regions, constituencies } from '../../data/Districts';
+import { useNavigate } from 'react-router-dom';
+
 
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showSignUp, setShowSignUp] = useState(false);
+  const navigate = useNavigate();   // Initialize useHistory hook
 
   const handleLogin = (event) => {
     event.preventDefault();
-    // Handle login logic here
-  };
+    const data = {
+      email: email,
+      password: password,
+    };
+
+    axios.post('http://localhost:8000/api/login', data)
+    .then(response => {
+        console.log('Login successful', response.data);
+        navigate('/DistrictList');  // Redirect to the DistrictList page
+    })
+    .catch(error => {
+        console.error('Login error', error.response.data);
+        // Optionally, handle errors here, such as displaying a login failure message
+    });
+};
+
 
   const toggleSignUp = () => {
     setShowSignUp(!showSignUp);
@@ -72,7 +89,7 @@ function SignUpForm({ toggleSignUp }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = "http://localhost/api/register";  // Update this URL to where your Laravel API is hosted
+    const url = "http://localhost:8000/api/register";  // Update this URL to where your Laravel API is hosted
   
     const jsonFormData = {
       firstName: formData.firstName,
