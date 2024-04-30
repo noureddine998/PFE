@@ -2,7 +2,7 @@ import React from "react";
 import './HomePage.css';
 import Navbar from '../../components/Navbar/Navbar';
 import { Link } from 'react-router-dom';
-import LoginUser from '../../components/LoginUser/LoginUser';
+
 
 const HomePage = () => {
   return (
@@ -24,7 +24,7 @@ const HomePage = () => {
       <div className="rightside">
         <h1>VOTE!</h1>
         <p> LET YOUR VOICE BE HEARD! </p>
-        <Link to="LoginUser" ><button>USER SIGN-UP/LOGIN</button></Link>
+        <Link to="Login" ><button>USER SIGN-UP/LOGIN</button></Link>
       </div>
     </div>
   );

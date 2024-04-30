@@ -81,6 +81,7 @@ section{ display: flex;  }
   border-radius: 25px;
   padding: 20px 35px ;
   margin: 8px;
+  width: 50vh;
 
 }
 
