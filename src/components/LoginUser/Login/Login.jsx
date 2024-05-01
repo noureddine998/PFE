@@ -20,7 +20,7 @@ const Login = () => {
     axios.post('http://localhost:8000/api/login', data)
     .then(response => {
         console.log('Login successful', response.data);
-        navigate('/DistrictList');  // Redirect to the DistrictList page
+        navigate('/VotingPage');  // Redirect to the DistrictList page
     })
     .catch(error => {
         console.error('Login error', error.response.data);

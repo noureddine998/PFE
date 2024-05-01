@@ -13,6 +13,7 @@ import VoterList from './Pages/VoterList/VoterList';
 import AddVoter from './components/AddVoters/AddVoter';
 import Login from './components/LoginUser/Login/Login'; // Import the Login component
 import Signup from './components/LoginUser/Singup/Singup'; // Import the Signup component
+import VotingPage from './Pages/VotingPage/VotingPage';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           {/* Add routes for Login and Signup */}
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/votingpage' element={<VotingPage />} />
         </Routes>
       </div>
     </BrowserRouter>
