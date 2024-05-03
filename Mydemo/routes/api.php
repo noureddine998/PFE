@@ -30,7 +30,7 @@ Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
 
-Route::get('/api/candidates/{district_type}/{district_name}', [CandidateController::class, 'fetchCandidates']);
+Route::get('/candidates/{district_type}/{district_name}', [CandidateController::class, 'fetchCandidates']);
 
 
 

@@ -21,9 +21,9 @@ class CandidateController extends Controller
 
     public function fetchCandidates($district_type, $district_name) {
         if ($district_type === 'local') {
-            $candidates = Candidate::where('local_district', $district_name)->get();
+            $candidates = Candidate::where('district_name', $district_name)->get();
         } else if ($district_type === 'regional') {
-            $candidates = Candidate::where('region', $district_name)->get();
+            $candidates = Candidate::where('district_name', $district_name)->get();
         } else {
             return response()->json(['error' => 'Invalid district type'], 400);
         }

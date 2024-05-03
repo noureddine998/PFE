@@ -1,30 +1,37 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.css";
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../Singup/Singup';
+import { axiosClient } from "../../../api/axios";
 const Login = () => {
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showSignUp, setShowSignUp] = useState(false);
   const navigate = useNavigate();   // Initialize useHistory hook
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
     const data = {
       email: email,
       password: password,
     };
 
-    axios.post('http://localhost:8000/api/login', data)
+	await axiosClient.get('/sanctum/csrf-cookie')
+	axiosClient.post('api/login', data)
     .then(response => {
         console.log('Login successful', response.data);
-        navigate('/VotingPage');  // Redirect to the DistrictList page
+		localStorage.setItem('authToken', response.data.token);  // Store token in localStorage
+        if (response.data.message) {
+            alert(response.data.message);  // Displaying the success message
+        }
+        navigate('/VotingPage');
     })
     .catch(error => {
         console.error('Login error', error.response.data);
-        // Optionally, handle errors here, such as displaying a login failure message
+        if (error.response && error.response.data && error.response.data.error) {
+            alert(error.response.data.error);  // Optionally, display error message
+        }
     });
 };
 

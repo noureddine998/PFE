@@ -1,78 +1,93 @@
-import React, { useState } from 'react';
-import './VotingPage.css'; // Make sure the CSS file name matches this import
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './VotingPage.css'
+import { axiosClient } from '../../api/axios';
 
-const DistrictTables = () => {
-  // Example data for regional districts
-  const regionalData = [
-    { name: "Alice Johnson", party: "Liberal", votes: 1234 },
-    { name: "Bob Smith", party: "Conservative", votes: 2345 },
-    { name: "Carlos Ruiz", party: "Green", votes: 3456 }
-  ];
+function VotingPage() {
+    const [localCandidates, setLocalCandidates] = useState([]);
+    const [regionalCandidates, setRegionalCandidates] = useState([]);
+    const [userPreferences, setUserPreferences] = useState({ localDistrict: '', region: '' });
 
-  // Example data for local districts
-  const localData = [
-    { name: "Diana Haynes", party: "Liberal", votes: 1567 },
-    { name: "Eric Foster", party: "Conservative", votes: 2678 },
-    { name: "Fiona Cheng", party: "Green", votes: 3789 }
-  ];
-
-  // State to store selections
-  const [selectedRegional, setSelectedRegional] = useState(null);
-  const [selectedLocal, setSelectedLocal] = useState(null);
-
-  // Helper function to render table rows with select buttons
-  const renderRows = (data, setType) => data.map((item, index) => (
-    <tr key={index}>
-      <td>{item.name}</td>
-      <td>{item.party}</td>
-      <td>{item.votes}</td>
-      <td>
-        <button className='votingpagebutton' onClick={() => {
-          if (setType === 'regional') {
-            setSelectedRegional(item.name);
-          } else {
-            setSelectedLocal(item.name);
+    useEffect(() => {
+        // Fetch user details including preferences
+        
+        axiosClient.get('/api/user/details', {
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
           }
-        }}>
-          Select
-        </button>
-      </td>
-    </tr>
-  ));
+      }) 
+            .then(response => {
+              console.log('User details fetched successfully', response.data);
+                setUserPreferences({
+                    localDistrict: response.data.localDistrict,
+                    region: response.data.region
+                });
+                // Fetch local district candidates
+                fetchCandidates('local', response.data.localDistrict);
+                // Fetch regional candidates
+                fetchCandidates('regional', response.data.region);
+            })
+            .catch(error => {
+                console.error('Error fetching user details', error);
+            });
+    }, []);
 
-  return (
-    <div className="table-container">
-      <table className="district-table">
-        <thead>
-          <tr>
-            <th>Candidates Name</th>
-            <th>Political Party</th>
-            <th>Vote Count</th>
-            <th>Vote for</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderRows(regionalData, 'regional')}
-        </tbody>
-      </table>
-      <p>{selectedRegional ? `Selected Regional Candidate: ${selectedRegional}` : ''}</p>
+    const fetchCandidates = (district_type, district_name) => {
+        axiosClient.get(`/api/candidates/${district_type}/${district_name}`,{
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+          }
+      })
+            .then(response => {
+                if (district_type === 'local') {
+                    setLocalCandidates(response.data);
+                } else {
+                    setRegionalCandidates(response.data);
+                }
+            })
+            .catch(error => {
+                console.error(`Error fetching ${district_type} district candidates`, error);
+            });
+    };
 
-      <table className="district-table">
-        <thead>
-          <tr>
-            <th>Candidates Name</th>
-            <th>Political Party</th>
-            <th>Vote Count</th>
-            <th>Vote for</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderRows(localData, 'local')}
-        </tbody>
-      </table>
-      <p>{selectedLocal ? `Selected Local Candidate: ${selectedLocal}` : ''}</p>
-    </div>
-  );
+    return (
+        <div className="table-container">
+            <h1>Local District Candidates</h1>
+            <table className="district-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>District</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {localCandidates.map(candidate => (
+                        <tr key={candidate.id}>
+                            <td>{candidate.full_name}</td>
+                            <td>{candidate.district_name}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <h1>Regional Candidates</h1>
+            <table className="district-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Region</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {regionalCandidates.map(candidate => (
+                        <tr key={candidate.id}>
+                            <td>{candidate.full_name}</td>
+                            <td>{candidate.district_name}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
 }
 
-export default DistrictTables;
+export default VotingPage;
