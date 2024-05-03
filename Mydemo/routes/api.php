@@ -28,3 +28,12 @@ Route::post('/candidates', [CandidateController::class, 'store']);
 
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
+
+
+Route::get('/api/candidates/{district_type}/{district_name}', [CandidateController::class, 'fetchCandidates']);
+
+
+
+
+// Define the route for fetching user details
+Route::middleware('auth:sanctum')->get('/user/details', [UserController::class, 'getUserDetails']);

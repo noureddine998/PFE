@@ -41,12 +41,24 @@ class UserController extends Controller
     ]);
 
     if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-        return response()->json(['message' => 'Logged in successfully']);
+        $user = Auth::user();
+        $token = $user->createToken('YourAppTokenName')->plainTextToken;
+        return response()->json(['token' => $token, 'message' => 'Logged in successfully']);
+    } else {
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
-
-    return response()->json(['error' => 'The provided credentials do not match our records.'], 401);
+    
 }
+
+public function getUserDetails(Request $request)
+{
+    $user = Auth::user(); // Get the authenticated user
+    return response()->json([
+        'localDistrict' => $user->localDistrict,
+        'region' => $user->region
+    ]);
+}
+
 
 }
 
