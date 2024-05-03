@@ -4,7 +4,7 @@ import styles from "./style.module.css";
 import axios from 'axios';
 // import { regions, constituencies } from '../../../data/Districts';
 import { useNavigate } from 'react-router-dom';
-
+import { axiosClient } from "../../../api/axios";
 
 
 export const constituencies = [
@@ -94,7 +94,7 @@ const Singup = ({ toggleSignUp }) => {
 	
 	  const handleSubmit = async (event) => {
 		event.preventDefault();
-		const url = "http://localhost:8000/api/register";  // Update this URL to where your Laravel API is hosted
+		const url = "/api/register";  // Update this URL to where your Laravel API is hosted
 	  
 		const jsonFormData = {
 		  firstName: formData.firstName,
@@ -111,7 +111,8 @@ const Singup = ({ toggleSignUp }) => {
 		};
 	  
 		try {
-		  const response = await axios.post(url, jsonFormData, {
+      await axiosClient.get('/sanctum/csrf-cookie');
+		  const response =  axiosClient.post(url, jsonFormData, {
 			headers: {
 			  'Content-Type': 'application/json'
 			}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CreateDistrict.css';
 import { regions, constituencies } from '../../data/Districts';
 import axios from 'axios';
+import { axiosClient } from '../../api/axios';
 
 const DistrictType = {
   local: 'local',
@@ -30,7 +31,7 @@ const CreateDistrict = ({ onSubmit }) => {
       district_name: districtName,
       seats_to_win: seatsToWin
     };
-    axios.post('http://localhost:8000/api/districts', data)
+    axiosClient.post('/api/districts', data)
       .then(response => {
         onSubmit(response.data); // Update parent component with new district data
         console.log('Success:', response.data);
