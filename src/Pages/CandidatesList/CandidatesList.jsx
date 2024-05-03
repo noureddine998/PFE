@@ -35,12 +35,12 @@ return (
           <tbody>
             {candidates.map((candidate, index) => (
               <tr key={index}>
-                <td>{candidate.fullName}</td>
+                <td>{candidate.full_name}</td>
                 <td>{candidate.age}</td>
                 <td>{candidate.gender}</td>
                 <td>{candidate.party}</td>
-                <td>{candidate.districtType}</td>
-                <td>{candidate.districtName}</td>
+                <td>{candidate.district_type}</td>
+                <td>{candidate.district_name}</td>
               </tr>
             ))}
           </tbody>

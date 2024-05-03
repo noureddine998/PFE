@@ -3,7 +3,7 @@ import './AdminAddCandidate.css';
 import axios from 'axios';
 
 import { regions, constituencies, parties } from '../../data/Districts';
-
+import { axiosClient } from '../../api/axios';
 
 
 // Enum definitions to match the smart contract
@@ -48,7 +48,7 @@ function AddCandidateForm({ onSubmit }) {
     } else {
       alert("Please make sure all fields are filled correctly according to the rules.");
     }
-    axios.post('http://localhost:8000/api/candidates', candidateData)
+    axiosClient.post('/api/candidates', candidateData)
         .then(response => {
             console.log('Candidate added:', response.data);
             // Handle success, e.g., clearing the form, notifying the user, etc.
