@@ -9,10 +9,9 @@ function VotingPage() {
     const [localCandidates, setLocalCandidates] = useState([]);
     const [regionalCandidates, setRegionalCandidates] = useState([]);
     const [userPreferences, setUserPreferences] = useState({ localDistrict: '', region: '' });
-    const [contract, setContract] = useState(null); // State to store the contract instance
+    const [contract, setContract] = useState(null);
 
     useEffect(() => {
-        // Fetch user details including preferences
         axiosClient.get('/api/user/details', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
@@ -24,16 +23,13 @@ function VotingPage() {
                     localDistrict: response.data.localDistrict,
                     region: response.data.region
                 });
-                // Fetch local district candidates
                 fetchCandidates('local', response.data.localDistrict);
-                // Fetch regional candidates
                 fetchCandidates('regional', response.data.region);
             })
             .catch(error => {
                 console.error('Error fetching user details', error);
             });
 
-        // Initialize the contract
         initContract();
     }, []);
 
@@ -67,26 +63,42 @@ function VotingPage() {
             });
     };
 
-    const voteLocal = async (candidateFullName) => {
+    const voteLocal = async (candidateId) => {
         try {
             // Call the voteLocal function of the contract
-            await contract.voteLocal(candidateFullName, 0, userPreferences.localDistrict);
+            await contract.voteLocal(candidateId, 0, userPreferences.localDistrict);
+
+            // API call to increment the vote count in the database
+            await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                }
+            });
+
             // Refresh the list of local candidates after voting
             fetchCandidates('local', userPreferences.localDistrict);
-            alert(`Voted for ${candidateFullName} in local district ${userPreferences.localDistrict}`);
+            alert(`Voted for candidate with ID ${candidateId} in local district ${userPreferences.localDistrict}`);
         } catch (error) {
             console.error('Error voting locally:', error);
             alert('Failed to vote locally.');
         }
     };
 
-    const voteRegional = async (candidateFullName) => {
+    const voteRegional = async (candidateId) => {
         try {
             // Call the voteRegional function of the contract
-            await contract.voteRegional(candidateFullName, 1, userPreferences.region);
+            await contract.voteRegional(candidateId, 1, userPreferences.region);
+
+            // API call to increment the vote count in the database
+            await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                }
+            });
+
             // Refresh the list of regional candidates after voting
             fetchCandidates('regional', userPreferences.region);
-            alert(`Voted for ${candidateFullName} in regional district ${userPreferences.region}`);
+            alert(`Voted for candidate with ID ${candidateId} in regional district ${userPreferences.region}`);
         } catch (error) {
             console.error('Error voting regionally:', error);
             alert('Failed to vote regionally.');
@@ -102,6 +114,7 @@ function VotingPage() {
                         <th>Name</th>
                         <th>District</th>
                         <th>Action</th>
+                        <th>Vote count</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +122,8 @@ function VotingPage() {
                         <tr key={candidate.id}>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
-                            <td><button onClick={() => voteLocal(candidate.full_name)} className='voteLocal'>Vote</button></td>
+                            <td><button onClick={() => voteLocal(candidate.id)} className='voteLocal'>Vote</button></td>
+                            <td>{candidate.voteCount}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -121,6 +135,7 @@ function VotingPage() {
                         <th>Name</th>
                         <th>Region</th>
                         <th>Action</th>
+                        <th>Vote count</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,7 +143,8 @@ function VotingPage() {
                         <tr key={candidate.id}>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
-                            <td><button onClick={() => voteRegional(candidate.full_name)} className='voteRegional'>Vote</button></td>
+                            <td><button onClick={() => voteRegional(candidate.id)} className='voteRegional'>Vote</button></td>
+                            <td>{candidate.voteCount}</td>
                         </tr>
                     ))}
                 </tbody>
