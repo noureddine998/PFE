@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import './AdminLogin.css';  // Import the CSS for styling
+import './AdminLogin.css';
+import { axiosClient } from "../../api/axios";
+import { useNavigate } from 'react-router-dom';
 
-function AdminLogin({ onLogin }) {
+function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();   // Initialize useHistory hook
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement your login logic here
-    onLogin(username, password);
+    try {
+        await axiosClient.get('/sanctum/csrf-cookie')
+      const response = await axiosClient.post('/api/admin/login', { username, password });
+      localStorage.setItem('adminToken', response.data.token);
+      alert(response.data.message);
+    } catch (error) {
+      console.error('Login error', error.response.data);
+      alert(error.response.data.error);
+    }
+    navigate('/adminPage');
+
   };
 
   return (

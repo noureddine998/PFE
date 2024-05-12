@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,8 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::get('/candidates/{district_type}/{district_name}', [CandidateController::class, 'fetchCandidates']);
 
-
+Route::post('/admin/login', [AdminController::class, 'login']);
+Route::middleware('auth:admin')->get('/admin/details', [AdminController::class, 'getUserDetails']);
 
 
 // Define the route for fetching user details
