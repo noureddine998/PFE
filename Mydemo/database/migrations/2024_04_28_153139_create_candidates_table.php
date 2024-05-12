@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('party');
             $table->string('district_type');
             $table->string('district_name');
+            $table->integer('voteCount')->default(0);
             $table->timestamps();
         });
         

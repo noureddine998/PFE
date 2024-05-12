@@ -30,7 +30,15 @@ class CandidateController extends Controller
         return response()->json($candidates);
     }
     
-
+    public function vote($id)
+    {
+        $candidate = Candidate::find($id);
+        if ($candidate) {
+            $candidate->increment('voteCount');
+            return response()->json(['message' => 'Vote recorded successfully!', 'candidate' => $candidate]);
+        }
+        return response()->json(['message' => 'Candidate not found'], 404);
+    }
     /**
      * Display the specified resource.
      *

@@ -32,6 +32,7 @@ Route::post('/login', [UserController::class, 'login']);
 
 
 Route::get('/candidates/{district_type}/{district_name}', [CandidateController::class, 'fetchCandidates']);
+Route::post('/candidates/{id}/vote', [CandidateController::class, 'vote']);
 
 Route::post('/admin/login', [AdminController::class, 'login']);
 Route::middleware('auth:admin')->get('/admin/details', [AdminController::class, 'getUserDetails']);
