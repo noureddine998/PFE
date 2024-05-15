@@ -28,4 +28,13 @@ class DistrictController extends Controller
         // Retourner une réponse JSON avec le district nouvellement créé
         return response()->json($district, 201);
     }
+
+    public function index()
+    {
+        // Fetch all districts from the database
+        $districts = District::all();
+
+        // Pass the data to the view
+        return response()->json($districts);
+}
 }

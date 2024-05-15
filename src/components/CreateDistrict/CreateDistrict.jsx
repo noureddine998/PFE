@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import { contractAddress,contractAbi } from '../../api/constant';
-import { constituencies,regions } from '../../data/Districts';
-function CreateDistrict() {
+import { contractAddress, contractAbi } from '../../api/constant';
+import { constituencies, regions } from '../../data/Districts';
+import { axiosClient } from '../../api/axios';
+import styles from './CreateDistrict.module.css';
+
+function CreateDistrict({ onSubmit }) {
     const [districtName, setDistrictName] = useState('');
-    const [districtType, setDistrictType] = useState(0);
+    const [districtType, setDistrictType] = useState('local');
     const [seatsToWin, setSeatsToWin] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateDistrict = async () => {
         try {
@@ -18,38 +22,59 @@ function CreateDistrict() {
             const signer = await provider.getSigner();
             const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-            const tx = await contract.createDistrict(districtType, districtName, parseInt(seatsToWin));
+            const tx = await contract.createDistrict(districtType === 'local' ? 0 : 1, districtName, parseInt(seatsToWin));
             await tx.wait(); // Wait for the transaction to be mined
-            alert("District created successfully!");
+            return tx; // Return transaction details
         } catch (error) {
             console.error("Error creating district:", error);
-            alert(`Failed to create district: ${error.message}`);
+            throw new Error(`Failed to create district: ${error.message}`);
+        }
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsLoading(true);
+
+        try {
+            await handleCreateDistrict();
+
+            const data = {
+                district_type: districtType,
+                district_name: districtName,
+                seats_to_win: seatsToWin
+            };
+
+            await axiosClient.get('/sanctum/csrf-cookie'); // Ensure the CSRF cookie is set
+            const response = await axiosClient.post('/api/districts', data);
+            onSubmit(response.data); // Update parent component with new district data
+            alert("District created successfully!");
+        } catch (error) {
+            console.error('Error:', error);
+            alert(error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     // Determine options based on district type
-    const districtOptions = districtType === 0 ? constituencies : regions;
+    const districtOptions = districtType === 'local' ? constituencies : regions;
 
     return (
         <div>
             <h2>Create District</h2>
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                handleCreateDistrict();
-            }}>
-
-<div>
+            <form onSubmit={handleSubmit} className={styles.formcontainer}>
+                <div>
                     <label>District Type:</label>
                     <select
                         value={districtType}
-                        onChange={(e) => setDistrictType(parseInt(e.target.value))}
+                        onChange={(e) => setDistrictType(e.target.value)}
                         required
                     >
-                        <option value={0}>Local</option>
-                        <option value={1}>Regional</option>
+                        <option value="local">Local</option>
+                        <option value="regional">Regional</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label>District Name:</label>
                     <select
@@ -63,7 +88,7 @@ function CreateDistrict() {
                         ))}
                     </select>
                 </div>
-                
+
                 <div>
                     <label>Seats to Win:</label>
                     <input
@@ -73,8 +98,14 @@ function CreateDistrict() {
                         required
                     />
                 </div>
-                <button type="submit">Create District</button>
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? "Creating..." : "Create District"}
+                </button>
+                <div className="note">
+        Note: District creation will take several minutes.
+      </div>
             </form>
+            
         </div>
     );
 }

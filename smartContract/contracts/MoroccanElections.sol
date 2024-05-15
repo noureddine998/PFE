@@ -139,36 +139,6 @@ function voteRegional(string memory candidateFullName, districtType dsType, stri
 }
 
 
-
-function getLocalCandidate(string memory localDistrictName) public view returns (string[] memory, string[] memory, uint[] memory) {
-    uint numCandidates = localDistricts[localDistrictName].candidatesTable.length;
-    string[] memory parties = new string[](numCandidates);
-    string[] memory names = new string[](numCandidates);
-    uint[] memory voteCounts = new uint[](numCandidates);
-
-    for (uint i = 0; i < numCandidates; i++) {
-        parties[i] = localDistricts[localDistrictName].candidatesTable[i].party;
-        names[i] = localDistricts[localDistrictName].candidatesTable[i].fullname;
-        voteCounts[i] = localDistricts[localDistrictName].candidatesTable[i].VoteCount;
-    }
-
-    return (parties, names, voteCounts);
-}
-
-function getRegionCandidate(string memory localDistrictName) public view returns (string[] memory, string[] memory, uint[] memory) {
-    uint numCandidates = localDistricts[localDistrictName].candidatesTable.length;
-    string[] memory parties = new string[](numCandidates);
-    string[] memory names = new string[](numCandidates);
-    uint[] memory voteCounts = new uint[](numCandidates);
-
-    for (uint i = 0; i < numCandidates; i++) {
-        parties[i] = localDistricts[localDistrictName].candidatesTable[i].party;
-        names[i] = localDistricts[localDistrictName].candidatesTable[i].fullname;
-        voteCounts[i] = localDistricts[localDistrictName].candidatesTable[i].VoteCount;
-    }
-
-    return (parties, names, voteCounts);
-}
 		
 function winnerCandidateRegional(string memory regionalDistrictName)public  {
 		require(regionalDistricts[regionalDistrictName].dsType == districtType.regional, "Le district n'est pas local");
@@ -199,6 +169,38 @@ function winnerCandidateRegional(string memory regionalDistrictName)public  {
         
         }while (regionalDistricts[regionalDistrictName].seatsToWin != 0);
         
+}
+
+
+
+function getLocalCandidate(string memory localDistrictName) public view returns (string[] memory, string[] memory, uint[] memory) {
+    uint numCandidates = localDistricts[localDistrictName].candidatesTable.length;
+    string[] memory parties = new string[](numCandidates);
+    string[] memory names = new string[](numCandidates);
+    uint[] memory voteCounts = new uint[](numCandidates);
+
+    for (uint i = 0; i < numCandidates; i++) {
+        parties[i] = localDistricts[localDistrictName].candidatesTable[i].party;
+        names[i] = localDistricts[localDistrictName].candidatesTable[i].fullname;
+        voteCounts[i] = localDistricts[localDistrictName].candidatesTable[i].VoteCount;
+    }
+
+    return (parties, names, voteCounts);
+}
+
+function getRegionCandidate(string memory localDistrictName) public view returns (string[] memory, string[] memory, uint[] memory) {
+    uint numCandidates = localDistricts[localDistrictName].candidatesTable.length;
+    string[] memory parties = new string[](numCandidates);
+    string[] memory names = new string[](numCandidates);
+    uint[] memory voteCounts = new uint[](numCandidates);
+
+    for (uint i = 0; i < numCandidates; i++) {
+        parties[i] = localDistricts[localDistrictName].candidatesTable[i].party;
+        names[i] = localDistricts[localDistrictName].candidatesTable[i].fullname;
+        voteCounts[i] = localDistricts[localDistrictName].candidatesTable[i].VoteCount;
+    }
+
+    return (parties, names, voteCounts);
 }
 
 function getCandidateSeatsWon(string memory districtName, districtType dsType, string memory candidateFullName) public view returns (uint) {

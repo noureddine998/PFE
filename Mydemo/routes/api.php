@@ -40,3 +40,9 @@ Route::middleware('auth:admin')->get('/admin/details', [AdminController::class, 
 
 // Define the route for fetching user details
 Route::middleware('auth:sanctum')->get('/user/details', [UserController::class, 'getUserDetails']);
+Route::get('/getdistricts', [DistrictController::class, 'index']);
+Route::get('/getCandidates', [CandidateController::class, 'index']);
+
+Route::get('/api/getdistricts', function() {
+    return App\Models\District::all();
+});

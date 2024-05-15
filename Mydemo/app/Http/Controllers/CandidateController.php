@@ -46,4 +46,12 @@ class CandidateController extends Controller
      * @return \Illuminate\Http\Response
      */
    
+     public function index()
+     {
+         // Fetch all districts from the database
+         $candidates = Candidate::all();
+ 
+         // Pass the data to the view
+         return response()->json($candidates);
+ }
 }

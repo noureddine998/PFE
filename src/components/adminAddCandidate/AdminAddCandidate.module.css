@@ -1,12 +1,13 @@
 
   
   /* Form container styling */
-  .form-container {
+  .formcontainer {
     background: rgb(94, 201, 228);
     padding: 2em;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-    width: 400px; /* Adjust the width as needed */
+    width: 300px; /* Adjust the width as needed */
+    margin: auto;
   }
   
   h1 {
@@ -15,15 +16,15 @@
   }
   
   /* Styling form elements: labels, inputs, select, and button */
-  form label {
+  .formcontainer label {
     display: block;
     margin-top: 1em;
     color: #333;
   }
   
-  form input[type=text],
-  form select,
-  form input[type=number] {
+  .formcontainer input[type=text],
+  .formcontainer select,
+  .formcontainer input[type=number] {
     width: 100%;
     padding: 10px;
     margin-top: 0.5em;
@@ -32,7 +33,7 @@
     box-sizing: border-box; /* Makes sure padding doesn't affect the total width */
   }
   
-  button {
+  .formcontainer button {
     width: 100%;
     padding: 10px;
     margin-top: 1em;
@@ -43,12 +44,12 @@
     cursor: pointer;
   }
   
-  button:hover {
+  .formcontainer button:hover {
     background-color: #6dd5ed; /* Button hover state color */
   }
   
   /* Note section at the bottom of the form */
-  .note {
+  .formcontainer .note {
     margin-top: 1em;
     background-color: #f8f8f8;
     padding: 10px;
@@ -60,7 +61,7 @@
   
   /* Small screens adjustments */
   @media (max-width: 768px) {
-    .form-container {
+    .formcontainer {
       width: auto;
       margin: 2em;
     }

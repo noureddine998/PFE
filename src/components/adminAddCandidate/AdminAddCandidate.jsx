@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './AdminAddCandidate.css';
+import styles from './AdminAddCandidate.module.css';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { regions, constituencies, parties } from '../../data/Districts';
@@ -18,7 +18,7 @@ const DistrictType = {
     regional: 1,
 };
 
-function AddCandidateForm({ onSubmit }) {
+function AddCandidateForm() {
     // State for each form field
     const [fullName, setFullName] = useState('');
     const [age, setAge] = useState('');
@@ -47,15 +47,7 @@ function AddCandidateForm({ onSubmit }) {
         };
 
         // Validation based on the smart contract requirements
-        if (
-            (candidateDistrictType === DistrictType.local || candidateDistrictType === DistrictType.regional) &&
-            (candidateDistrictType !== DistrictType.regional || (candidateAge > 18 && candidateAge < 40) || candidateGender === Gender.female)
-        ) {
-            onSubmit(candidateData);
-        } else {
-            alert("Please make sure all fields are filled correctly according to the rules.");
-            return;
-        }
+       
 
         // Backend API call
         try {
@@ -98,7 +90,7 @@ function AddCandidateForm({ onSubmit }) {
     const districtOptions = districtType === '0' ? constituencies : regions;
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
+        <form onSubmit={handleSubmit} className={styles.formcontainer}>
             <label>
                 Full Name:
                 <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} required />

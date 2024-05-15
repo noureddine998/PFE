@@ -39,7 +39,7 @@ function AdminPage() {
 
     return (
       
-        <div className="admin-page">
+        <div className="admin-page-container">
           <VerticalNav/>
             <h1>Admin Page</h1>
             <button onClick={startElection}>Start Election</button>

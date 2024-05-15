@@ -9,7 +9,7 @@ function VerticalNav() {
       <div className="nav-logo">MENU</div>
       <ul className="nav-items">
         <li className="nav-item">
-          <Link to="/" className="nav-link">
+          <Link to="/adminPage" className="nav-link">
             <FaHome className="nav-icon" />
             <span>Dashboard</span>
           </Link>

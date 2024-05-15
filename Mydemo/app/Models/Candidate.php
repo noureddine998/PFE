@@ -22,6 +22,7 @@ class Candidate extends Model
         'district_type',
         'district_name',
         'voteCount',
+        'seatsWon',
     ];
 
 
