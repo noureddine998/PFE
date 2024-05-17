@@ -17,25 +17,25 @@ function VerticalNav() {
         <li className="nav-item">
           <Link to="/DistrictList" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span>District List</span>
+            <span className='test'>District List</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/CandidatesList" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span>Candidates List</span>
+            <span className='test'>Candidates List</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/VoterList" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span>Voters List</span>
+            <span className='test'>Voters List</span>
           </Link>
         </li>
         <li className="nav-item">
           {/* Implement sign out functionality as needed */}
           <FaSignOutAlt className="nav-icon" />
-          <span>Sign Out</span>
+          <span className='test'>Sign Out</span>
         </li>
       </ul>
     </nav>

@@ -45,4 +45,10 @@
     display: block;
     margin-top: 5px;
   }
+  .nav-item span.test {
+    text-decoration: none;
+  }
+  .nav-link {
+    text-decoration: none; /* Supprime la décoration du lien */
+  }
   
