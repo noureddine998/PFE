@@ -18,6 +18,7 @@ class District extends Model
         'district_type',
         'district_name',
         'seats_to_win',
+        'number_of_voters',
     ];
 
     // If you need to add relationships or methods, you can add them here

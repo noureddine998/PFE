@@ -13,7 +13,9 @@
   padding: 20px;
 }
 
-
+.ss {
+  position: relative;
+}
 
 
 /* Additional styles for form elements and buttons within .create-district-container */

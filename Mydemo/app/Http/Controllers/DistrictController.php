@@ -15,16 +15,8 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        // Valider les données du formulaire (vous pouvez utiliser les règles de validation appropriées ici)
-        $validatedData = $request->validate([
-            'district_type' => 'required',
-            'district_name' => 'required|unique:districts', // Assurez-vous qu'il est unique si c'est la clé primaire
-            'seats_to_win' => 'required|integer',
-        ]);
 
-        // Créer un nouveau district avec les données validées
-        $district = District::create($validatedData);
-
+        $district = District::create($request->all());
         // Retourner une réponse JSON avec le district nouvellement créé
         return response()->json($district, 201);
     }
@@ -36,5 +28,14 @@ class DistrictController extends Controller
 
         // Pass the data to the view
         return response()->json($districts);
+}
+
+public static function incrementVoters($districtName)
+{
+    $district = District::where('district_name', $districtName)->first();
+    if ($district) {
+        $district->number_of_voters += 1;
+        $district->save();
+    }
 }
 }

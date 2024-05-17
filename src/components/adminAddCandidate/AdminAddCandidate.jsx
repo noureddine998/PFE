@@ -52,39 +52,41 @@ function AddCandidateForm() {
         try {
             const response = await axiosClient.post('/api/candidates', candidateData);
             console.log('Candidate added:', response.data);
+            alert("Candidate added successfully ");
+
         } catch (error) {
             console.error('Error adding candidate:', error);
             return;
         }
 
         // Smart Contract Interaction
-        try {
-            if (!window.ethereum) {
-                alert("MetaMask is not installed. Please install it to use this app.");
-                return;
-            }
+    //     try {
+    //         if (!window.ethereum) {
+    //             alert("MetaMask is not installed. Please install it to use this app.");
+    //             return;
+    //         }
 
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer = await provider.getSigner();
-            const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+    //         const provider = new ethers.BrowserProvider(window.ethereum);
+    //         const signer = await provider.getSigner();
+    //         const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-            // Call the addCandidate function
-            const tx = await contract.addCandidate(fullName, candidateAge, candidateGender, party, candidateDistrictType, districtName);
-            await tx.wait(); // Wait for the transaction to be mined
-            alert("Candidate added successfully to the Blockchain!");
+    //         // Call the addCandidate function
+    //         const tx = await contract.addCandidate(fullName, candidateAge, candidateGender, party, candidateDistrictType, districtName);
+    //         await tx.wait(); // Wait for the transaction to be mined
+    //         alert("Candidate added successfully to the Blockchain!");
 
-            // Reset the form
-            setFullName('');
-            setAge('');
-            setGender('');
-            setParty('');
-            setDistrictType('');
-            setDistrictName('');
-        } catch (error) {
-            console.error("Error adding candidate:", error);
-            alert(`Failed to add candidate: ${error.message}`);
-        }
-    };
+    //         // Reset the form
+    //         setFullName('');
+    //         setAge('');
+    //         setGender('');
+    //         setParty('');
+    //         setDistrictType('');
+    //         setDistrictName('');
+    //     } catch (error) {
+    //         console.error("Error adding candidate:", error);
+    //         alert(`Failed to add candidate: ${error.message}`);
+    //     }
+     };
 
     const districtOptions = districtType === '0' ? constituencies : regions;
 

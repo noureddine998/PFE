@@ -41,6 +41,7 @@ const DistrictList = () => {
               <th>District Type</th>
               <th>District Name</th>
               <th>Seats To Win</th>
+              <th>Number of Voters</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +50,7 @@ const DistrictList = () => {
                             <td>{district.district_type}</td>
                             <td>{district.district_name}</td>
                             <td>{district.seats_to_win}</td>
+                            <td>{district.number_of_voters}</td>
                         </tr>
                     ))}
           </tbody>

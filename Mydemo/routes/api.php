@@ -25,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/districts', [DistrictController::class, 'store']);
 Route::post('/candidates', [CandidateController::class, 'store']);
 
+Route::get('/districts/{district_name}/set-seats', [CandidateController::class, 'setSeatsToCandidates']);
 
 
 Route::post('/register', [UserController::class, 'register']);

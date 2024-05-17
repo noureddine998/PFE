@@ -44,7 +44,7 @@ const CandidatesList = () => {
   return (
     <div className="admin-page-container">
       <VerticalNav />
-      <div>
+      {/* <div>
         <label htmlFor="district">Filter by District:</label>
         <input list="districtname" name="district" id="district" value={selectedDistrict} onChange={handleDistrictChange} />
         <datalist id="districtname">
@@ -52,7 +52,7 @@ const CandidatesList = () => {
             <option key={index} value={district} />
           ))}
         </datalist>
-      </div>
+      </div> */}
       <div>
         <button className='AddButtons' onClick={handleAddCandidateClick}>Add Candidate</button>
         <table className="content-table">
@@ -78,7 +78,7 @@ const CandidatesList = () => {
                 <td>{candidate.district_type}</td>
                 <td>{candidate.district_name}</td>
                 <td>{candidate.voteCount}</td>
-                <td>{candidate.SeatsWon}</td>
+                <td>{candidate.seatsWon}</td>
               </tr>
             ))}
           </tbody>

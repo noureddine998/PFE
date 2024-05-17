@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('district_type');
             $table->string('district_name'); // Define the column without primary key constraint
-            $table->integer('seats_to_win');
+            $table->integer('seats_to_win')->default(0);;
+            $table->integer('number_of_voters')->default(0);
             $table->timestamps();
         });
 

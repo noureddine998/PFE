@@ -140,36 +140,41 @@ function voteRegional(string memory candidateFullName, districtType dsType, stri
 
 
 		
-function winnerCandidateRegional(string memory regionalDistrictName)public  {
-		require(regionalDistricts[regionalDistrictName].dsType == districtType.regional, "Le district n'est pas local");
-		 
-		uint seatsToWin = regionalDistricts[regionalDistrictName].seatsToWin;
+function winnerCandidateRegional(string memory regionalDistrictName) public {
+    require(regionalDistricts[regionalDistrictName].dsType == districtType.regional, "Le district n'est pas local");
 
-		uint electoralDenominator = regionalDistricts[regionalDistrictName].numberOfVoters / seatsToWin;
-        uint maxVotes = regionalDistricts[regionalDistrictName].candidatesTable[0].VoteCount;
-        
-        do{
+    uint seatsToWin = regionalDistricts[regionalDistrictName].seatsToWin;
+    uint electoralDenominator = regionalDistricts[regionalDistrictName].numberOfVoters / seatsToWin;
 
-        for(uint i = 0; i < regionalDistricts[regionalDistrictName].candidatesTable.length; i++) {
+    while (seatsToWin > 0) {
+        uint maxVotes = 0;
+        uint winningCandidateIndex = 0;
+
+        // Find the candidate with the maximum votes
+        for (uint i = 0; i < regionalDistricts[regionalDistrictName].candidatesTable.length; i++) {
             uint votes = regionalDistricts[regionalDistrictName].candidatesTable[i].VoteCount;
-            
-            
-            if(votes > maxVotes) {
+
+            if (votes > maxVotes) {
                 maxVotes = votes;
-                regionalDistricts[regionalDistrictName].candidatesTable[i].seatsWon++;
-                    if(votes > electoralDenominator)
-                votes -= electoralDenominator;
-                    else{
-                        votes = 0;
-                    }
+                winningCandidateIndex = i;
             }
         }
-        
-        regionalDistricts[regionalDistrictName].seatsToWin--;
-        
-        }while (regionalDistricts[regionalDistrictName].seatsToWin != 0);
-        
+
+        // Allocate seat to the winning candidate
+        regionalDistricts[regionalDistrictName].candidatesTable[winningCandidateIndex].seatsWon++;
+
+        // Decrease the votes of the winning candidate by the electoral denominator
+        if (regionalDistricts[regionalDistrictName].candidatesTable[winningCandidateIndex].VoteCount > electoralDenominator) {
+            regionalDistricts[regionalDistrictName].candidatesTable[winningCandidateIndex].VoteCount -= electoralDenominator;
+        } else {
+            regionalDistricts[regionalDistrictName].candidatesTable[winningCandidateIndex].VoteCount = 0;
+        }
+
+        // Decrease the seats to win
+        seatsToWin--;
+    }
 }
+
 
 
 

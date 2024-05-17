@@ -12,23 +12,23 @@ function CreateDistrict({ onSubmit }) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateDistrict = async () => {
-        try {
-            if (!window.ethereum) {
-                alert("MetaMask is not installed. Please install it to use this app.");
-                return;
-            }
+        // try {
+        //     if (!window.ethereum) {
+        //         alert("MetaMask is not installed. Please install it to use this app.");
+        //         return;
+        //     }
 
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer = await provider.getSigner();
-            const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+        //     const provider = new ethers.BrowserProvider(window.ethereum);
+        //     const signer = await provider.getSigner();
+        //     const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-            const tx = await contract.createDistrict(districtType === 'local' ? 0 : 1, districtName, parseInt(seatsToWin));
-            await tx.wait(); // Wait for the transaction to be mined
-            return tx; // Return transaction details
-        } catch (error) {
-            console.error("Error creating district:", error);
-            throw new Error(`Failed to create district: ${error.message}`);
-        }
+        //     const tx = await contract.createDistrict(districtType === 'local' ? 0 : 1, districtName, parseInt(seatsToWin));
+        //     await tx.wait(); // Wait for the transaction to be mined
+        //     return tx; // Return transaction details
+        // } catch (error) {
+        //     console.error("Error creating district:", error);
+        //     throw new Error(`Failed to create district: ${error.message}`);
+        // }
     };
 
     const handleSubmit = async (event) => {

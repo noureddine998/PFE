@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DistrictController;
+use App\Models\District; // Assurez-vous d'importer le modèle District
 
 class UserController extends Controller
 {
@@ -28,6 +30,11 @@ class UserController extends Controller
 
         // Create the user in the database
         $user = User::create($validatedData);
+
+        // Increment number of voters in region and local district
+        DistrictController::incrementVoters($validatedData['region']);
+        DistrictController::incrementVoters($validatedData['localDistrict']);
+
 
         // Return a successful response
         return response()->json(['message' => 'User registered successfully!', 'user' => $user], 201);
