@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 import { useNavigate } from 'react-router-dom';
-import SignUpForm from '../Singup/Singup';
+import SignUpForm from '../Singup/Signup';
 import { axiosClient } from "../../../api/axios";
 const Login = () => {
 	const [email, setEmail] = useState('');

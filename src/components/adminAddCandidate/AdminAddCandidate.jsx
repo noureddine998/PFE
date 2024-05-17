@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './AdminAddCandidate.module.css';
-import axios from 'axios';
 import { ethers } from 'ethers';
 import { regions, constituencies, parties } from '../../data/Districts';
 import { contractAbi, contractAddress } from '../../api/constant';
