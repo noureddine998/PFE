@@ -5,6 +5,31 @@ import { axiosClient } from '../../api/axios';
 import { ethers } from 'ethers';
 import { contractAbi, contractAddress } from '../../api/constant';
 
+
+import RNI from './logos/RNI.jpg';
+import PJD from './logos/PJD.jpg';
+import PAM from './logos/PAM.jpg';
+import PI from './logos/PI.jpg';
+import USFP from './logos/USFP.jpg';
+import PPS from './logos/PPS.jpg';
+import MP from './logos/MP.jpg';
+import UC from './logos/UC.jpg';
+import FFD from './logos/FFD.jpg';
+import FGD from './logos/FGD.jpg';
+
+const partyLogos = {
+    "Rassemblement National des Indépendants (RNI)": RNI,
+    "Parti de la Justice et du Développement (PJD)": PJD,
+    "Parti Authenticité et Modernité (PAM)": PAM,
+    "Parti de l'Istiqlal (PI)": PI,
+    "Union Socialiste des Forces Populaires (USFP)": USFP,
+    "Parti du Progrès et du Socialisme (PPS)": PPS,
+    "Mouvement Populaire (MP)": MP,
+    "Union Constitutionnelle (UC)": UC,
+    "Front des Forces Démocratiques (FFD)": FFD,
+    "Fédération de la Gauche Démocratique (FGD)": FGD
+};
+
 function VotingPage() {
     const [localCandidates, setLocalCandidates] = useState([]);
     const [regionalCandidates, setRegionalCandidates] = useState([]);
@@ -111,6 +136,8 @@ function VotingPage() {
             <table className="district-table">
                 <thead>
                     <tr>
+                        <th>Party logo</th>
+                        <th>Party</th>
                         <th>Name</th>
                         <th>District</th>
                         <th>Action</th>
@@ -120,6 +147,8 @@ function VotingPage() {
                 <tbody>
                     {localCandidates.map(candidate => (
                         <tr key={candidate.id}>
+                            <td> <img src={partyLogos[candidate.party]} alt={`Logo of ${candidate.party}`} width={50} height={50}/></td>
+                            <td>{candidate.party}</td>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
                             <td><button onClick={() => voteLocal(candidate.id)} className='voteLocal'>Vote</button></td>
@@ -132,6 +161,8 @@ function VotingPage() {
             <table className="district-table">
                 <thead>
                     <tr>
+                        <th>Party logo</th>
+                        <th>Party Name</th>
                         <th>Name</th>
                         <th>Region</th>
                         <th>Action</th>
@@ -141,6 +172,8 @@ function VotingPage() {
                 <tbody>
                     {regionalCandidates.map(candidate => (
                         <tr key={candidate.id}>
+                            <td> <img src={partyLogos[candidate.party]} alt={`Logo of ${candidate.party}`} width={50} height={50}/></td>
+                            <td>{candidate.party}</td>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
                             <td><button onClick={() => voteRegional(candidate.id)} className='voteRegional'>Vote</button></td>

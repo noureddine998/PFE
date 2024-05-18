@@ -47,3 +47,5 @@ Route::get('/getCandidates', [CandidateController::class, 'index']);
 Route::get('/api/getdistricts', function() {
     return App\Models\District::all();
 });
+
+Route::get('/allocate-seats-all', [CandidateController::class, 'allocateSeatsToAll']);

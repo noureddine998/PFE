@@ -57,37 +57,72 @@ class CandidateController extends Controller
  }
 
  public function setSeatsToCandidates($district_name)
- {
-     try {
-         $district = District::where('district_name', $district_name)->first();
-         if (!$district) {
-             return response()->json(['message' => 'District not found'], 404);
-         }
- 
-         $candidates = Candidate::where('district_name', $district_name)->get();
-         $seatsToWin = $district->seats_to_win;
-         if ($district->number_of_voters == 0) {
-             return response()->json(['message' => 'No voters registered'], 400);
-         }
-         $electoralDenominator = intdiv($district->number_of_voters, $seatsToWin);
- 
-         while ($seatsToWin > 0 && $candidates->where('voteCount', '>', 0)->count() > 0) {
-             $winner = $candidates->sortByDesc('voteCount')->first();
-             $winner->increment('seatsWon');
- 
-             $newVoteCount = $winner->voteCount - $electoralDenominator;
-             $winner->voteCount = $newVoteCount > 0 ? $newVoteCount : 0;
-             $winner->save();
- 
-             $seatsToWin--;
-         }
-         return response()->json(['message' => 'Seats successfully allocated']);
-     } catch (\Exception $e) {
-         // Log exception details to help in debugging
-         \Log::error($e->getMessage());
-         return response()->json(['message' => 'An error occurred'], 500);
-     }
- }
+{
+    try {
+        $district = District::where('district_name', $district_name)->first();
+        if (!$district) {
+            return response()->json(['message' => 'District not found'], 404);
+        }
+
+        $candidates = Candidate::where('district_name', $district_name)->get();
+        $seatsToWin = $district->seats_to_win;
+        if ($district->number_of_voters == 0) {
+            return response()->json(['message' => 'No voters registered'], 400);
+        }
+        $electoralDenominator = intdiv($district->number_of_voters, $seatsToWin);
+
+        // Clone the original candidates collection to manipulate vote counts in memory
+        $workingCandidates = $candidates->map(function ($candidate) {
+            return (object)[
+                'id' => $candidate->id,
+                'voteCount' => $candidate->voteCount,
+                'seatsWon' => $candidate->seatsWon
+            ];
+        });
+
+        while ($seatsToWin > 0) {
+            $workingCandidates = $workingCandidates->filter(function ($candidate) {
+                return $candidate->voteCount > 0;
+            });
+
+            if ($workingCandidates->isEmpty()) {
+                break;
+            }
+
+            $winner = $workingCandidates->sortByDesc('voteCount')->first();
+            $winner->seatsWon++;
+
+            // Adjust the vote count in memory, not in the database
+            $winner->voteCount = max(0, $winner->voteCount - $electoralDenominator);
+
+            // Persist the seat allocation to the database
+            Candidate::find($winner->id)->increment('seatsWon');
+
+            $seatsToWin--;
+        }
+        
+        return response()->json(['message' => 'Seats successfully allocated']);
+    } catch (\Exception $e) {
+        // Log exception details to help in debugging
+        \Log::error($e->getMessage());
+        return response()->json(['message' => 'An error occurred'], 500);
+    }
+}
+
+
+public function allocateSeatsToAll()
+{
+    // Fetch all districts from the database
+    $districts = District::all();
+
+    // Iterate over each district and allocate seats
+    foreach ($districts as $district) {
+        $this->setSeatsToCandidates($district->district_name);
+    }
+
+    return response()->json(['message' => 'Seats successfully allocated']);
+}
+
  
  
 

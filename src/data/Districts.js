@@ -42,7 +42,6 @@ export const constituencies = [
     "Parti du Progrès et du Socialisme (PPS)",
     "Mouvement Populaire (MP)",
     "Union Constitutionnelle (UC)",
-    "Mouvement Démocratique et Social (MDS)",
     "Front des Forces Démocratiques (FFD)",
     "Fédération de la Gauche Démocratique (FGD)"
   ];
