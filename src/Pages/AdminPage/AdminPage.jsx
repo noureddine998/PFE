@@ -4,11 +4,18 @@ import { contractAbi, contractAddress } from '../../api/constant'; // Adjust the
 import './AdminPage.css';
 import VerticalNav from '../../components/VerticalNav/VerticalNav';
 import { axiosClient } from '../../api/axios';
-
+import Header from '../../components/Dashboard/Header';
+import Sidebar from '../../components/Dashboard/Sidebar';
+import Home from '../../components/Dashboard/Home';
 
 function AdminPage() {
     const [contract, setContract] = useState(null);
     const [selectedDistrict, setSelectedDistrict] = useState();
+    const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
+
+    const OpenSidebar = () => {
+      setOpenSidebarToggle(!openSidebarToggle)
+    }
     useEffect(() => {
         // Initialize the contract
         initContract();
@@ -56,9 +63,9 @@ function AdminPage() {
     };
 
     return (
-        <div className="admin-page-container">
-            <VerticalNav/>
-            <h1>Admin Page</h1>
+        <div className="grid-container">
+           <Header OpenSidebar={OpenSidebar}/>
+      <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar}/>
 
             <div className="ss">
            

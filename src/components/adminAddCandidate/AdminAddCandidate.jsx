@@ -7,9 +7,8 @@ import { axiosClient } from '../../api/axios';
 
 // Enum definitions to match the smart contract
 const Gender = {
-    male: 0,
-    female: 1,
-    other: 2,
+    male: 'male',
+    female: 'female',
 };
 
 const DistrictType = {
@@ -21,7 +20,7 @@ function AddCandidateForm() {
     // State for each form field
     const [fullName, setFullName] = useState('');
     const [age, setAge] = useState('');
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState(Gender.male);
     const [party, setParty] = useState('');
     const [districtType, setDistrictType] = useState('');
     const [districtName, setDistrictName] = useState('');
@@ -32,14 +31,13 @@ function AddCandidateForm() {
 
         // Convert the inputs to the correct types
         const candidateAge = parseInt(age, 10);
-        const candidateGender = parseInt(gender, 10);
         const candidateDistrictType = parseInt(districtType, 10);
 
         // Construct the candidate data
         const candidateData = {
             full_name: fullName,
             age: candidateAge,
-            gender: candidateGender,
+            gender : gender,
             party,
             district_type: candidateDistrictType,
             district_name: districtName,
@@ -104,9 +102,8 @@ function AddCandidateForm() {
                 Gender:
                 <select value={gender} onChange={e => setGender(e.target.value)} required>
                     <option value="">Select Gender</option>
-                    <option value="0">Male</option>
-                    <option value="1">Female</option>
-                    <option value="2">Other</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
                 </select>
             </label>
             <label>

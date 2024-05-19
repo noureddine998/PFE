@@ -3,6 +3,27 @@
   font-family: sans-serif;
 }
 
+
+.VotingPageContainer {
+  max-width:900px;
+  overflow:hidden;
+  margin: auto;
+  border-left: 2px #fff solid;
+  border-right: 2px #fff solid;
+
+  box-shadow:0 0 13px #666;
+  max-width:900px;
+ }
+
+/*********** HEADER ***********/
+.VotingPageHeader {
+  height:125px;
+  position:relative;
+  margin: auto;
+  width: auto;
+}
+
+
 .district-table {
   border-collapse: collapse;
   margin: 25px 0;

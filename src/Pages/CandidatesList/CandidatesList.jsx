@@ -42,8 +42,7 @@ const CandidatesList = () => {
     : candidates;
 
   return (
-    <div className="admin-page-container">
-      <VerticalNav />
+    <div className="main-container">
       {/* <div>
         <label htmlFor="district">Filter by District:</label>
         <input list="districtname" name="district" id="district" value={selectedDistrict} onChange={handleDistrictChange} />

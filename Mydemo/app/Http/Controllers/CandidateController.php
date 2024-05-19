@@ -123,7 +123,44 @@ public function allocateSeatsToAll()
     return response()->json(['message' => 'Seats successfully allocated']);
 }
 
- 
- 
+
+public function getGenderDistribution()
+{
+    $genders = Candidate::selectRaw('gender, COUNT(*) as count')
+                        ->groupBy('gender')
+                        ->get();
+
+    return response()->json($genders);
+}
+
+public function getAgeDistribution()
+{
+    $totals = Candidate::selectRaw("
+        COUNT(*) as total,
+        SUM(CASE WHEN age < 35 THEN 1 ELSE 0 END) as under35,
+        SUM(CASE WHEN age BETWEEN 35 AND 45 THEN 1 ELSE 0 END) as between35And45,
+        SUM(CASE WHEN age BETWEEN 46 AND 55 THEN 1 ELSE 0 END) as between46And55,
+        SUM(CASE WHEN age > 55 THEN 1 ELSE 0 END) as over55
+    ")->first();
+
+    $ageGroups = [
+        'Under 35' => round(($totals->under35 / $totals->total) * 100, 2),
+        '35-45'    => round(($totals->between35And45 / $totals->total) * 100, 2),
+        '45-55'    => round(($totals->between46And55 / $totals->total) * 100, 2),
+        '+55'      => round(($totals->over55 / $totals->total) * 100, 2)
+    ];
+
+    return response()->json($ageGroups);
+}
+
+public function getSeatsWonByParty()
+{
+    $seatsByParty = Candidate::select('party', \DB::raw('SUM(seatsWon) as totalSeats'))
+                             ->groupBy('party')
+                             ->get();
+
+    return response()->json($seatsByParty);
+}
+
 
 }

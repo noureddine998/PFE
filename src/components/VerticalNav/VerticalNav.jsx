@@ -27,9 +27,9 @@ function VerticalNav() {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/VoterList" className="nav-link"> {/* Update this line */}
+          <Link to="/statistics" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span className='test'>Voters List</span>
+            <span className='test'>statistics</span>
           </Link>
         </li>
         <li className="nav-item">

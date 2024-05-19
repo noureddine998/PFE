@@ -49,3 +49,10 @@ Route::get('/api/getdistricts', function() {
 });
 
 Route::get('/allocate-seats-all', [CandidateController::class, 'allocateSeatsToAll']);
+
+Route::get('/candidates/gender-distribution', [CandidateController::class, 'getGenderDistribution']);
+
+Route::get('/candidates/age-distribution', [CandidateController::class, 'getAgeDistribution']);
+
+
+Route::get('/candidates/seats-won-by-party', [CandidateController::class, 'getSeatsWonByParty']);

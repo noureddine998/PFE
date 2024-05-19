@@ -31,8 +31,7 @@ const DistrictList = () => {
     setShowCreateDistrict(false);
   };
   return (
-    <div className="admin-page-container">
-      <VerticalNav />
+    <div className="main-container">
       {/* <CreateDistrict onSubmit={handleNewDistrict} /> */}
       <div >
       <button className='AddButtons' onClick={handleAddDistrictClick}>Add District</button>        <table className= "content-table">
