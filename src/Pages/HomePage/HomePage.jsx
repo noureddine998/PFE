@@ -12,19 +12,19 @@ const HomePage = () => {
         <Navbar/>
         <nav>
           <div className="logo">
-            <h1>E-Vote</h1>
+            <h1 style={{ color: "black" }}>E-Vote</h1>
           </div>
         </nav>
         <section>
           <div className="leftside">
-            <img src="img/home_page.png" alt="Home Page" />
+            
           </div>
         </section>
       </header>
       <div className="rightside">
-        <h1>VOTE!</h1>
-        <p> LET YOUR VOICE BE HEARD! </p>
-        <Link to="Login" ><button>USER SIGN-UP/LOGIN</button></Link>
+      <h1 style={{ color: "black" }}>VOTE!</h1>
+        <p style={{ color: "black" }}> LET YOUR VOICE BE HEARD! </p>
+        <Link to="Login" style={{ color: "black" }} ><button>USER SIGN-UP/LOGIN</button></Link>
       </div>
     </div>
   );
