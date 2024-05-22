@@ -19,6 +19,7 @@ import GenderChart from './components/StatisticsComponents/CandidateGenderChart'
 import Dashboard from './components/Dashboard/Statistics';
 import DistrictsListPage from './components/Dashboard/DistrictsListPage';
 import CandidatesListPage from './components/Dashboard/CandidatesListPage';
+import ResultsPage from './Pages/ResultsPage/ResultsPage';
 function App() {
   return (
     <BrowserRouter>
@@ -32,7 +33,7 @@ function App() {
           <Route path='/CandidatesListPage' element={<CandidatesListPage />} />
 
           <Route path='/seats' element={<SeatsWonByPartyChart />} />
-
+          <Route path='/Results' element={<ResultsPage />} />
 
 
 
