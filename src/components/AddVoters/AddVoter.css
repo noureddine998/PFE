@@ -37,7 +37,7 @@
     width: 100%;
     padding: 10px;
     margin-top: 1em;
-    background-color: #2193b0; /* Button color */
+    background-color: #b02121; /* Button color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -45,7 +45,7 @@
   }
   
   button:hover {
-    background-color: #6dd5ed; /* Button hover state color */
+    background-color: #d85252; /* Button hover state color */
   }
   
   /* Note section at the bottom of the form */
