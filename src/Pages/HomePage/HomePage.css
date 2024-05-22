@@ -19,16 +19,16 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../../../public/backgrounds/BACKGROUND1.png') no-repeat center center;
+  background: url('../../../public/backgrounds/2.jpg') no-repeat center center;
   background-size: cover;
-  filter: blur(10px); /* Adjust the blur intensity as needed */
+  filter: blur(3px); /* Adjust the blur intensity as needed */
   z-index: -1; /* Ensure the blur overlay is behind the content */
 }
 
 nav {
   width: 100%;
   height: 100px;
-  background: linear-gradient(57deg, #34d8eb);
+  background: linear-gradient(57deg, #006A4E);
   display: flex;
   color: white;
 }
@@ -107,9 +107,9 @@ section {
 .rightside button {
   font-size: 17px;
   font-weight: 600;
-  color: black;
+  color: white;
   text-transform: uppercase;
-  background: linear-gradient(57deg, #34d8eb, #b1ebf2);
+  background: linear-gradient(57deg, #b80000, #dd0303);
   border-radius: 25px;
   padding: 20px 35px;
   margin: 8px;
@@ -117,7 +117,7 @@ section {
 }
 
 .rightside button:hover {
-  background: linear-gradient(57deg, #8cc2ed, #46a5f2);
+  background: linear-gradient(57deg, #c1292e, #f32f2f);
 }
 
 .home-page-container {

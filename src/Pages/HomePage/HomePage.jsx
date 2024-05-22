@@ -11,9 +11,7 @@ const HomePage = () => {
       <header className="site-header clearfix">
         <Navbar/>
         <nav>
-          <div className="logo">
-            <h1 style={{ color: "black" }}>E-Vote</h1>
-          </div>
+         
         </nav>
         <section>
           <div className="leftside">
@@ -22,9 +20,9 @@ const HomePage = () => {
         </section>
       </header>
       <div className="rightside">
-      <h1 style={{ color: "black" }}>VOTE!</h1>
-        <p style={{ color: "black" }}> LET YOUR VOICE BE HEARD! </p>
-        <Link to="Login" style={{ color: "black" }} ><button>USER SIGN-UP/LOGIN</button></Link>
+      <h1 style={{ color: "white" }}>VOTE!</h1>
+        <p style={{ color: "white" }}> LET YOUR VOICE BE HEARD! </p>
+        <Link to="Login" style={{ color: "white" }} ><button>USER SIGN-UP/LOGIN</button></Link>
       </div>
     </div>
   );
