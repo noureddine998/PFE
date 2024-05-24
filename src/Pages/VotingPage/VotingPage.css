@@ -10,13 +10,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: url('../../../public/backgrounds/6.png') repeat-x center center;
+  height: 200%;
+  background-image: url('../../../public/backgrounds/6.png');
+  background-size: auto 780px; /* This sets the height of the background image */
   background-repeat: repeat-y;
-  background-size: cover;
   filter: blur(3px); /* Adjust the blur intensity as needed */
   z-index: -1; /* Ensure the blur overlay is behind the content */
- }
+}
+
 
 /*********** HEADER ***********/
 

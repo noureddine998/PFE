@@ -1,11 +1,9 @@
-import React, { useState , useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 import axios from 'axios';
-// import { regions, constituencies } from '../../../data/Districts';
 import { useNavigate } from 'react-router-dom';
 import { axiosClient } from "../../../api/axios";
-
 
 export const constituencies = [
   "Agadir-Ida-Ou-Tanane", "Aïn Chock (Casablanca)", "Al Fida - Mers Sultan (Casablanca)", "Al Hoceïma",
@@ -41,7 +39,6 @@ export const regions = [
   "Dakhla-Oued Ed-Dahab"
 ];
 
-
 const regionDistrictMap = {
   "Tanger-Tétouan-Al Hoceïma": ["Al Hoceïma", "Chefchaouen", "Tanger-Assilah", "Tétouan", "M'diq-Fnideq", "Larache"],
   "L'Oriental": ["Berkane", "Guercif", "Jerada", "Oujda-Angad", "Nador", "Taourirt", "Figuig"],
@@ -57,206 +54,268 @@ const regionDistrictMap = {
   "Dakhla-Oued Ed-Dahab": ["Oued Ed-Dahab"]
 };
 
+const Signup = ({ toggleSignUp }) => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: '',
+    birthDate: '',
+    gender: '',
+    cin: '',
+    region: '',
+    localDistrict: ''
+  });
 
-const Singup = ({ toggleSignUp }) => {
-    const [formData, setFormData] = useState({
-		firstName: '',
-		lastName: '',
-		email: '',  // Separate field for email
-		phone: '',  // Separate field for phone
-		password: '',
-		confirmPassword: '',
-		birthDate: '',
-		gender: '',
-		cin: '',
-		region: '',
-		localDistrict: ''
-	  });
-	
+  const [filteredDistricts, setFilteredDistricts] = useState([]);
+  const [isEligible, setIsEligible] = useState(false);
+  const [twoFactorCode, setTwoFactorCode] = useState('');
+  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false);
+  const navigate = useNavigate();
 
-    const [filteredDistricts, setFilteredDistricts] = useState([]);
+  useEffect(() => {
+    if (formData.region) {
+      setFilteredDistricts(regionDistrictMap[formData.region] || []);
+    }
+  }, [formData.region]);
 
-    useEffect(() => {
-      // Update the districts when region changes
-      if (formData.region) {
-        setFilteredDistricts(regionDistrictMap[formData.region] || []);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+
+  const handleTwoFactorChange = (event) => {
+    setTwoFactorCode(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    try {
+      const response = await axiosClient.post('api/check-eligibility', {
+        cin: formData.cin,
+        phone: formData.phone,
+        firstName: formData.firstName,
+        lastName: formData.lastName
+      });
+
+      if (!response.data.eligible) {
+        alert('You are not eligible to register.');
+        return;
       }
-    }, [formData.region]);
 
+      setTwoFactorEnabled(true);
+    } catch (error) {
+      console.error('Error during eligibility check:', error);
+      alert('There was an error with your eligibility check.');
+    }
+  };
 
-	  const handleInputChange = (event) => {
-		const { name, value } = event.target;
-		setFormData(prevData => ({
-		  ...prevData,
-		  [name]: value
-		}));
-	  };
-	
-	  const handleSubmit = async (event) => {
-		event.preventDefault();
-		const url = "/api/register";  // Update this URL to where your Laravel API is hosted
-	  
-		const jsonFormData = {
-		  firstName: formData.firstName,
-		  lastName: formData.lastName,
-		  email: formData.email,
-		  phone: formData.phone,
-		  password: formData.password,
-		  password_confirmation: formData.confirmPassword,  // Laravel expects password_confirmation for validation
-		  birthDate: formData.birthDate,
-		  gender: formData.gender,
-		  cin: formData.cin,
-		  region: formData.region,
-		  localDistrict: formData.localDistrict
-		};
-	  
-		try {
+  const jsonFormData = {
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phone: formData.phone,
+    password: formData.password,
+    password_confirmation: formData.confirmPassword,  // Laravel expects password_confirmation for validation
+    birthDate: formData.birthDate,
+    gender: formData.gender,
+    cin: formData.cin,
+    region: formData.region,
+    localDistrict: formData.localDistrict
+  };
+
+  const handleTwoFactorSubmit = async (event) => {
+    event.preventDefault();
+
+    if (twoFactorCode !== '25422') {
+      alert('Incorrect 2FA code.');
+      return;
+    }
+
+    try {
       await axiosClient.get('/sanctum/csrf-cookie');
-		  const response =  axiosClient.post(url, jsonFormData, {
-			headers: {
-			  'Content-Type': 'application/json'
-			}
-		  });
-		  alert('Registration successful! Please check your email to verify your account.');
-		} catch (error) {
-		  console.error('Error during registration:', error);
-		  alert('Error during registration: ' + (error.response?.data?.message || error.message));
-		}
-	  };
-	  
-    return (
-        <div className={styles.signup_container}>
-            <div className={styles.signup_form_container}>
-                <div className={styles.left}>
-                    <h1>Welcome Back</h1>
-                    <Link to="/login">
-                        <button type="button" className={styles.white_btn}>
-                           <h3>Sign in</h3> 
-                        </button>
-                    </Link>
-                </div>
-                <div className={styles.right}>
-				<form onSubmit={handleSubmit}>
-          <input
-            className="input_style"
-            id="first-name"
-            name="firstName"
-            type="text"
-            placeholder="Prénom"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            className="input_style"
-            id="last-name"
-            name="lastName"
-            type="text"
-            placeholder="Nom de famille"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-          />
-           <input
-            className="input_style"
-            id="email"
-            name="email"
-            type="email"  // Specify type as email for validation
-            placeholder="Adresse e-mail"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            className="input_style"
-            id="phone"
-            name="phone"
-            type="tel"  // Specify type as tel for phone input
-            placeholder="Numéro de téléphone"
-            value={formData.phone}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            className="input_style"
-            id="cin"
-            name="cin"
-            type="text"
-            placeholder="CIN"
-            value={formData.cin}
-            onChange={handleInputChange}
-            required
-          />
-          <select id="region" name="region" value={formData.region} onChange={handleInputChange} required>
-                      <option value="">Select a region</option>  // Placeholder option
-                      {regions.map((region, index) => (
-                        <option key={index} value={region}>{region}</option>
-                      ))}
-                    </select>
-                    <select id="local-district" name="localDistrict" value={formData.localDistrict} onChange={handleInputChange} required disabled={!formData.region}>
-                      <option value="">Select a district</option>  // Placeholder option
-                      {filteredDistricts.map((district, index) => (
-                        <option key={index} value={district}>{district}</option>
-                      ))}
-                    </select>
-          <input
+      axiosClient.post('api/register', jsonFormData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+        });
+      alert('User registered successfully!');
+      navigate('/login');
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('There was an error with your registration.');
+    }
+  };
 
-            id="birth-date"
-            name="birthDate"
-            type="date"
-            value={formData.birthDate}
-            onChange={handleInputChange}
-            required
-          />
-          <div className={`${styles.genderSelection} gender-selection`}>
-            <input
-              type="radio"
-              id="female"
-              name="gender"
-              value="female"
-              checked={formData.gender === 'female'}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="female" >Femme</label>
-            <input
-              type="radio"
-              id="male"
-              name="gender"
-              value="male"
-              checked={formData.gender === 'male'}
-              onChange={handleInputChange}
-            />
-            <label htmlFor="male">Homme</label>
-
-            <input
-            className="input_style"
-            id="password"
-            name="password"
-            type="password"
-            placeholder="Mot de passe"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-          <input
-            className="input_style"
-            id="confirm-password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirmer le mot de passe"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            required
-          />
-          </div>
-          
-          <button type="submit"  id="signup-submit" style={{ width: "15%" }}><h3>S'inscrire</h3></button>
-        </form>
-                    <p>Already have an account? <Link to="/login">Log in</Link></p>
-                </div>
-            </div>
+  return (
+    <div className={styles.signup_container}>
+      <div className={styles.signup_form_container}>
+        <div className={styles.left}>
+          <h1>Welcome Back</h1>
+          <Link to="/login">
+            <button type="button" className={styles.white_btn}>
+              <h3>Sign in</h3>
+            </button>
+          </Link>
         </div>
-    );
+        <div className={styles.right}>
+          {!twoFactorEnabled ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                className="input_style"
+                id="first-name"
+                name="firstName"
+                type="text"
+                placeholder="Prénom"
+                value={formData.firstName}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                className="input_style"
+                id="last-name"
+                name="lastName"
+                type="text"
+                placeholder="Nom de famille"
+                value={formData.lastName}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                className="input_style"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Adresse e-mail"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                className="input_style"
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="Numéro de téléphone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                className="input_style"
+                id="cin"
+                name="cin"
+                type="text"
+                placeholder="CIN"
+                value={formData.cin}
+                onChange={handleInputChange}
+                required
+              />
+              <select
+                id="region"
+                name="region"
+                value={formData.region}
+                onChange={handleInputChange}
+                required
+              >
+                <option value="">Select a region</option>
+                {regions.map((region, index) => (
+                  <option key={index} value={region}>{region}</option>
+                ))}
+              </select>
+              <select
+                id="local-district"
+                name="localDistrict"
+                value={formData.localDistrict}
+                onChange={handleInputChange}
+                required
+                disabled={!formData.region}
+              >
+                <option value="">Select a district</option>
+                {filteredDistricts.map((district, index) => (
+                  <option key={index} value={district}>{district}</option>
+                ))}
+              </select>
+              <input
+                id="birth-date"
+                name="birthDate"
+                type="date"
+                value={formData.birthDate}
+                onChange={handleInputChange}
+                required
+              />
+              <div className={`${styles.genderSelection} gender-selection`}>
+                <input
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={formData.gender === 'female'}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="female">Femme</label>
+                <input
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked={formData.gender === 'male'}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="male">Homme</label>
+              </div>
+              <input
+                className="input_style"
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Mot de passe"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                className="input_style"
+                id="confirm-password"
+                name="confirmPassword"
+                type="password"
+                placeholder="Confirmer le mot de passe"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+                required
+              />
+              <button type="submit" id="signup-submit" style={{ width: "15%" }}>
+                <h3>S'inscrire</h3>
+              </button>
+            </form>
+          ) : (
+            <form onSubmit={handleTwoFactorSubmit}>
+              <input
+                className="input_style"
+                id="two-factor-code"
+                name="twoFactorCode"
+                type="text"
+                placeholder="Enter 2FA Code"
+                value={twoFactorCode}
+                onChange={handleTwoFactorChange}
+                required
+              />
+              <button type="submit" id="verify-code" style={{ width: "15%" }}>
+                <h3>Verify</h3>
+              </button>
+            </form>
+          )}
+          <p>Already have an account? <Link to="/login">Log in</Link></p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default Singup;
+export default Signup;

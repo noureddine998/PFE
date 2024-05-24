@@ -6,6 +6,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EligibleToVoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,3 +59,7 @@ Route::get('/candidates/age-distribution', [CandidateController::class, 'getAgeD
 Route::get('/candidates/seats-won-by-party', [CandidateController::class, 'getSeatsWonByParty']);
 
 Route::get('/voting-percentage', [CandidateController::class, 'getVotingPercentage']);
+
+
+
+Route::post('/check-eligibility', [EligibleToVoteController::class, 'checkEligibility']);

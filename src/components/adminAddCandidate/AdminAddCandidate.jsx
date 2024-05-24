@@ -16,6 +16,8 @@ const DistrictType = {
     regional: 1,
 };
 
+
+
 function AddCandidateForm() {
     // State for each form field
     const [fullName, setFullName] = useState('');
@@ -30,8 +32,13 @@ function AddCandidateForm() {
         e.preventDefault();
 
         // Convert the inputs to the correct types
+        const candidateGender = gender === 'Male' ? '0' : '1';
+        const candidateDsType = districtType === 0 ? 'Regional' : 'Local';
         const candidateAge = parseInt(age, 10);
         const candidateDistrictType = parseInt(districtType, 10);
+        const candidateGenderType = parseInt(candidateGender, 10);
+
+
 
         // Construct the candidate data
         const candidateData = {
@@ -39,12 +46,11 @@ function AddCandidateForm() {
             age: candidateAge,
             gender : gender,
             party,
-            district_type: candidateDistrictType,
+            district_type: candidateDsType,
             district_name: districtName,
         };
 
         // Validation based on the smart contract requirements
-       
 
         // Backend API call
         try {
@@ -57,33 +63,33 @@ function AddCandidateForm() {
             return;
         }
 
-        // Smart Contract Interaction
-    //     try {
-    //         if (!window.ethereum) {
-    //             alert("MetaMask is not installed. Please install it to use this app.");
-    //             return;
-    //         }
+      //  Smart Contract Interaction
+        try {
+            if (!window.ethereum) {
+                alert("MetaMask is not installed. Please install it to use this app.");
+                return;
+            }
 
-    //         const provider = new ethers.BrowserProvider(window.ethereum);
-    //         const signer = await provider.getSigner();
-    //         const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(contractAddress, contractAbi, signer);
 
-    //         // Call the addCandidate function
-    //         const tx = await contract.addCandidate(fullName, candidateAge, candidateGender, party, candidateDistrictType, districtName);
-    //         await tx.wait(); // Wait for the transaction to be mined
-    //         alert("Candidate added successfully to the Blockchain!");
+            // Call the addCandidate function
+            const tx = await contract.addCandidate(fullName, candidateAge, candidateGenderType, party, candidateDistrictType, districtName);
+            await tx.wait(); // Wait for the transaction to be mined
+            alert("Candidate added successfully to the Blockchain!");
 
-    //         // Reset the form
-    //         setFullName('');
-    //         setAge('');
-    //         setGender('');
-    //         setParty('');
-    //         setDistrictType('');
-    //         setDistrictName('');
-    //     } catch (error) {
-    //         console.error("Error adding candidate:", error);
-    //         alert(`Failed to add candidate: ${error.message}`);
-    //     }
+            // Reset the form
+            setFullName('');
+            setAge('');
+            setGender('');
+            setParty('');
+            setDistrictType('');
+            setDistrictName('');
+        } catch (error) {
+            console.error("Error adding candidate:", error);
+            alert(`Failed to add candidate: ${error.message}`);
+        }
      };
 
     const districtOptions = districtType === '0' ? constituencies : regions;
@@ -92,19 +98,19 @@ function AddCandidateForm() {
         <form onSubmit={handleSubmit} className={styles.formcontainer}>
             <label>
                 Full Name:
-                <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} required />
+            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} required />
             </label>
             <label>
                 Age:
-                <input type="number" value={age} onChange={e => setAge(e.target.value)} required />
+            <input type="number" value={age} onChange={e => setAge(e.target.value)} required />
             </label>
             <label>
                 Gender:
-                <select value={gender} onChange={e => setGender(e.target.value)} required>
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>
+            <select value={gender} onChange={e => setGender(e.target.value)} required>
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
             </label>
             <label>
                 Party:

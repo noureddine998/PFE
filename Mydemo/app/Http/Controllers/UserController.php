@@ -6,12 +6,16 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DistrictController;
-use App\Models\District; // Assurez-vous d'importer le modèle District
+use App\Http\Controllers\EligibleToVoteController;
 
 class UserController extends Controller
 {
+
+
     public function register(Request $request)
     {
+
+        
         $validatedData = $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
@@ -24,6 +28,8 @@ class UserController extends Controller
             'region' => 'required|string|max:255',
             'localDistrict' => 'required|string|max:255',
         ]);
+         
+
 
         // Encrypt the password before saving
         $validatedData['password'] = bcrypt($validatedData['password']);

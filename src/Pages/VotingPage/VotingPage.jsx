@@ -60,15 +60,15 @@ function VotingPage() {
     }, []);
 
     const initContract = async () => {
-        // if (window.ethereum) {
-        //     const provider = new ethers.BrowserProvider(window.ethereum);
-        //     await provider.send("eth_requestAccounts", []);
-        //     const signer = await provider.getSigner();
-        //     const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
-        //     setContract(contractInstance);
-        // } else {
-        //     console.error("Ethereum object not found, install MetaMask.");
-        // }
+        if (window.ethereum) {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            await provider.send("eth_requestAccounts", []);
+            const signer = await provider.getSigner();
+            const contractInstance = new ethers.Contract(contractAddress, contractAbi, signer);
+            setContract(contractInstance);
+        } else {
+            console.error("Ethereum object not found, install MetaMask.");
+        }
     };
 
     const fetchCandidates = (district_type, district_name) => {
@@ -92,7 +92,7 @@ function VotingPage() {
     const voteLocal = async (candidateId) => {
         try {
             // Call the voteLocal function of the contract
-       //     await contract.voteLocal(candidateId, 0, userPreferences.localDistrict);
+           await contract.voteLocal(candidateId, 0, userPreferences.localDistrict);
 
             // API call to increment the vote count in the database
             await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
@@ -113,7 +113,7 @@ function VotingPage() {
     const voteRegional = async (candidateId) => {
         try {
             // Call the voteRegional function of the contract
-        //    await contract.voteRegional(candidateId, 1, userPreferences.region);
+           await contract.voteRegional(candidateId, 1, userPreferences.region);
 
             // API call to increment the vote count in the database
             await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
