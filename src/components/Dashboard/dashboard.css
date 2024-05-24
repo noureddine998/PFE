@@ -57,7 +57,7 @@ body {
   #sidebar {
     grid-area: sidebar;
     height: 100%;
-    background-color: #F9FAFB;
+    background-color: #05580A;
     overflow-y: auto;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
@@ -76,7 +76,7 @@ body {
   }
   
   .sidebar-brand {
-    margin-top: 15px;
+    margin: auto;
     font-size: 20px;
     font-weight: 700;
   }
@@ -98,8 +98,10 @@ body {
   
   .sidebar-list-item > a {
     text-decoration: none;
-    color: #303944;
-  }
+    color: #ffffff;
+    font-weight: bold;
+
+    }
   
   .sidebar-responsive {
     display: inline !important;

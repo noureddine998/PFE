@@ -19,9 +19,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('../../../public/backgrounds/2.jpg') no-repeat center center;
+  background: url('../../../public/backgrounds/bg100.png') no-repeat center center;
   background-size: cover;
-  filter: blur(3px); /* Adjust the blur intensity as needed */
+  filter: blur(0px); /* Adjust the blur intensity as needed */
   z-index: -1; /* Ensure the blur overlay is behind the content */
 }
 
@@ -30,7 +30,7 @@ nav {
   height: 100px;
   background: linear-gradient(57deg, #006A4E);
   display: flex;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 .logo {
@@ -76,32 +76,41 @@ section {
 }
 
 .leftside img {
-  padding-left: 50px;
-  width: 800px;
-  height: 400px;
+  position: absolute;
+  left: 90px;
+  bottom: 50px;
+ 
 }
 
+
+
+
 .rightside {
-  width: 40%;
-  height: 300px;
-  color: white;
+  background: url('../../images/Emptyballot.png') no-repeat center center;
+  width: 30%;
+  height: 500px;
   text-align: center;
   position: absolute;
-  top: 200px;
+  bottom: 50px;
   left: 804px;
+ 
 }
 
 .rightside h1 {
   text-align: center;
-  color: #ffffff;
+  color:  #05580A;
   font-size: 50px;
   font-weight: 900;
   text-transform: uppercase;
+  position: relative;
+  top: 120px;
 }
 
 .rightside p {
   font-size: 1.1rem;
   padding: 30px 0;
+  position: relative;
+  top: 125px;
 }
 
 .rightside button {
@@ -109,15 +118,17 @@ section {
   font-weight: 600;
   color: white;
   text-transform: uppercase;
-  background: linear-gradient(57deg, #b80000, #dd0303);
+  background: linear-gradient(57deg, #185941, #035803);
   border-radius: 25px;
   padding: 20px 35px;
   margin: 8px;
   width: 50vh;
+  position: relative;
+  top: 140px;
 }
 
 .rightside button:hover {
-  background: linear-gradient(57deg, #c1292e, #f32f2f);
+  background: linear-gradient(57deg, #217959, #057705);
 }
 
 .home-page-container {
@@ -133,6 +144,46 @@ section {
 .login-form-area {
   flex: 1;
   /* adjust as necessary for proper alignment and spacing */
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+/* Styling form elements: labels, inputs, select, and button */
+form label {
+  display: block;
+  margin-top: 1em;
+  color: #333;
+}
+
+form input[type=text],
+form input[type=email],
+form select,
+form input[type=number] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 0.5em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box; /* Makes sure padding doesn't affect the total width */
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 1em;
+  background: linear-gradient(57deg, #185941, #035803);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(57deg, #217959, #057705);
 }
 
 @media (max-width: 768px) {

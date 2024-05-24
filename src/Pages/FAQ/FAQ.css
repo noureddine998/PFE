@@ -1,0 +1,33 @@
+.faq-page {
+    width: 80%;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    
+}
+
+.faq-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background: linear-gradient(57deg, #185941, #035803);
+    border: 1px solid #ddd;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 10px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.faq-question:hover {
+    background: linear-gradient(57deg, #185941, #035803);
+}
+
+.faq-answer {
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    color: #ffffff;
+}

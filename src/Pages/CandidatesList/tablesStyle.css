@@ -17,7 +17,7 @@
 }
 
 .content-table thead tr {
-    background-color: #303944;
+    background-color: #05580A;
     color: #ffffff;
     text-align: center;
     font-weight: bold;
@@ -39,14 +39,17 @@
 .content-table tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
+.content-table tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
 
 .content-table tbody tr:last-of-type {
-    border-bottom: 2px solid #303944;
+    border-bottom: 2px solid #05580A;
 }
 
 .content-table tbody tr.active-row {
     font-weight: bold;
-    color: #6699ff;
+    color: #05580A;
 }
 
 .AddButtons{
@@ -60,7 +63,7 @@
 	font-size: 14px;
 	cursor: pointer;
     position: relative;
-    right: 300px;
+    right: 400px;
     bottom: 0px;
     color: white;
 }

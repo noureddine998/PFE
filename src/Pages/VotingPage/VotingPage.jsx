@@ -17,6 +17,7 @@ import UC from './logos/UC.jpg';
 import FFD from './logos/FFD.jpg';
 import FGD from './logos/FGD.jpg';
 import banner from './logos/maroc.png';
+import Navbar from '../../components/Navbar/Navbar';
 const partyLogos = {
     "Rassemblement National des Indépendants (RNI)": RNI,
     "Parti de la Justice et du Développement (PJD)": PJD,
@@ -134,7 +135,7 @@ function VotingPage() {
         <div className="VotingPageContainer">
              <header className="VotingPageHeader">
                 <div>
-                    <img src={banner} alt="انتـخابـات 2021" title="انتـخابـات 2021" />
+                    <Navbar></Navbar>
                 </div>
             </header>
             <h1>Local District Candidates</h1>

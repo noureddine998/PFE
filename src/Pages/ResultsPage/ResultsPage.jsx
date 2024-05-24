@@ -13,6 +13,7 @@ import UC from './logos/UC.jpg';
 import FFD from './logos/FFD.jpg';
 import FGD from './logos/FGD.jpg';
 import banner from './logos/maroc.png';
+import Navbar from '../../components/Navbar/Navbar';
 
 export const regions = [
   "Tanger-Tétouan-Al Hoceïma",
@@ -99,11 +100,15 @@ function ResultsPage() {
         fetchCandidates('regional', formData.region);
     };
 
+    // Sort candidates by seats won in descending order before rendering
+   localCandidates.sort((a, b) => b.seatsWon - a.seatsWon);
+   regionalCandidates.sort((a, b) => b.seatsWon - a.seatsWon);
+
     return (
         <div className="VotingPageContainer">
             <header className="VotingPageHeader">
                 <div>
-                    <img src={banner} alt="انتـخابـات 2021" title="انتـخابـات 2021" />
+                    <Navbar></Navbar>
                 </div>
             </header>
             <div className='resultsSearch'>
@@ -133,6 +138,7 @@ function ResultsPage() {
                                 <th>Name</th>
                                 <th>District</th>
                                 <th>Vote count</th>
+                                <th>Seats Won</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -143,6 +149,7 @@ function ResultsPage() {
                                     <td>{candidate.full_name}</td>
                                     <td>{candidate.district_name}</td>
                                     <td>{candidate.voteCount}</td>
+                                    <td>{candidate.seatsWon}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -157,6 +164,7 @@ function ResultsPage() {
                                 <th>Name</th>
                                 <th>Region</th>
                                 <th>Vote count</th>
+                                <th>Seats Won</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -167,6 +175,7 @@ function ResultsPage() {
                                     <td>{candidate.full_name}</td>
                                     <td>{candidate.district_name}</td>
                                     <td>{candidate.voteCount}</td>
+                                    <td>{candidate.seatsWon}</td>
                                 </tr>
                             ))}
                         </tbody>

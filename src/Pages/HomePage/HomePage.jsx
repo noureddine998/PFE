@@ -2,8 +2,8 @@ import React from "react";
 import './HomePage.css';
 import Navbar from '../../components/Navbar/Navbar';
 import { Link } from 'react-router-dom';
-
-
+import logo from '../../images/logo.png'
+import emptyballot from '../../images/Emptyballot.png'
 const HomePage = () => {
   return (
     <div className="home-page-container">
@@ -20,9 +20,9 @@ const HomePage = () => {
         </section>
       </header>
       <div className="rightside">
-      <h1 style={{ color: "white" }}>VOTE!</h1>
-        <p style={{ color: "white" }}> LET YOUR VOICE BE HEARD! </p>
-        <Link to="Login" style={{ color: "white" }} ><button>USER SIGN-UP/LOGIN</button></Link>
+      <h1>VOTE!</h1>
+        <p> LET YOUR VOICE BE HEARD! </p>
+        <Link to="Login"><button>USER SIGN-UP/LOGIN</button></Link>
       </div>
     </div>
   );

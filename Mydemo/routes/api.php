@@ -56,3 +56,5 @@ Route::get('/candidates/age-distribution', [CandidateController::class, 'getAgeD
 
 
 Route::get('/candidates/seats-won-by-party', [CandidateController::class, 'getSeatsWonByParty']);
+
+Route::get('/voting-percentage', [CandidateController::class, 'getVotingPercentage']);

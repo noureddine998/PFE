@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 use App\Models\District; // Assurez-vous d'importer le modèle District
-
+use App\Models\User;
 class CandidateController extends Controller
 {
     /**
@@ -162,5 +162,20 @@ public function getSeatsWonByParty()
     return response()->json($seatsByParty);
 }
 
+
+
+public function getVotingPercentage()
+{
+    $totalUsers = User::count();
+    $totalVotes = Candidate::sum('voteCount');
+
+    if ($totalVotes == 0) { // Prevent division by zero
+        return response()->json(['error' => 'No votes counted yet'], 400);
+    }
+
+    $votingPercentage = ((($totalVotes  / 2) / $totalUsers)) * 100;
+
+    return response()->json(['Voting Percentage' => $votingPercentage]);
+}
 
 }

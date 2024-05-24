@@ -1,0 +1,28 @@
+.bigContainer{
+    border-radius: 20px;
+    width: 1000px; /* Adjust the width to accommodate two charts */
+    display: flex; /* Change to flex display */
+    justify-content: space-between; /* Adjust spacing between charts */
+    align-items: center;
+    padding: 10px;
+    margin: auto;
+}
+
+.statsContainer {
+    border: 2px #fff solid;
+    border-radius: 20px;
+    width: 450px; /* Adjust the width to accommodate three charts */
+    background-color: #fff;
+    display: block; /* Change to flex display */
+    justify-content: space-between; /* Adjust spacing between charts */
+    align-items: center;
+    padding: 10px;
+    
+}
+
+.chart {
+    width: 100%; /* Adjust the width of each chart */
+    height: auto;
+    border: 1px solid #ddd; /* Optional: add border for better visualization */
+    border-radius: 10px; /* Optional: add border-radius for better visualization */
+}

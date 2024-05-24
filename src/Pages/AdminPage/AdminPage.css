@@ -17,5 +17,8 @@
   position: relative;
 }
 
+.grid-container button{
+  height: 50px; ;
+}
 
 /* Additional styles for form elements and buttons within .create-district-container */
