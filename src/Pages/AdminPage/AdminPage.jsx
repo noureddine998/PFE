@@ -87,8 +87,8 @@ function AdminPage() {
             <div className="ss">
            
         </div>
-            <button className="buttonsEndStart" onClick={startElection}>Start Election</button>
-            <button className="buttonsEndStart" onClick={endElection}>End Election</button>
+            <button className="buttonsEndStart" onClick={startElection}>Commencer les élections</button>
+            <button className="buttonsEndStart" onClick={endElection}>Mettre fin aux élections</button>
             {/* Add other admin functionalities here */}
         </div>
     );

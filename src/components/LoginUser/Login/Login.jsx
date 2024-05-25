@@ -46,7 +46,7 @@ const Login = () => {
 			<div className={styles.login_form_container}>
 				<div className={styles.left}>
 					<form className={styles.form_container} onSubmit={handleLogin}>
-						<h1>Login to Your Account</h1>
+						<h1>Connectez-vous à votre compte</h1>
 						<input
 						id="email"
 						name="email"
@@ -73,7 +73,7 @@ const Login = () => {
 					<h1>New Here ?</h1>
 					<Link to="/signup">
 						<button type="button" className={styles.white_btn}>
-						<h3>Sing Up</h3>	
+						<h3>S'inscrire</h3>	
 						</button>
 					</Link>
 				</div>

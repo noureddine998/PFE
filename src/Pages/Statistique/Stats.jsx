@@ -18,13 +18,13 @@ function Stats() {
             <div className='bigContainer'>
             <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Gender</h1>
+                    <h1>Genre</h1>
                 <CandidateGenderChart/>
                 </div>
            </div>
            <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Seats Won</h1>
+                    <h1>Sièges gagnés</h1>
                 <SeatsWonByPartyChart/>
                 </div>
            </div>
@@ -38,7 +38,7 @@ function Stats() {
            </div>
            <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Voting</h1>
+                    <h1>Vote</h1>
                 <VotingPercentageChart/>
                 </div>
            </div>

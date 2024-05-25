@@ -17,13 +17,13 @@ function VerticalNav() {
         <li className="nav-item">
           <Link to="/DistrictList" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span className='test'>District List</span>
+            <span className='test'>liste électorale de circonscription</span>
           </Link>
         </li>
         <li className="nav-item">
           <Link to="/CandidatesList" className="nav-link"> {/* Update this line */}
             <FaList className="nav-icon" />
-            <span className='test'>Candidates List</span>
+            <span className='test'>Liste Candidates</span>
           </Link>
         </li>
         <li className="nav-item">
@@ -35,7 +35,7 @@ function VerticalNav() {
         <li className="nav-item">
           {/* Implement sign out functionality as needed */}
           <FaSignOutAlt className="nav-icon" />
-          <span className='test'>Sign Out</span>
+          <span className='test'>Se déconnecter</span>
         </li>
       </ul>
     </nav>

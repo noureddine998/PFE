@@ -26,17 +26,17 @@ function Sidebar({openSidebarToggle, OpenSidebar}) {
             </li>
             <li className='sidebar-list-item'>
                 <Link to="/DistrictsListPage">
-                    <BsFillArchiveFill className='icon'/> Districts List
+                    <BsFillArchiveFill className='icon'/>circonscription
                 </Link>
             </li>
             <li className='sidebar-list-item'>
                 <Link to="/CandidatesListPage">
-                    <BsFillGrid3X3GapFill className='icon'/> Candidates List
+                    <BsFillGrid3X3GapFill className='icon'/> Liste Candidates
                 </Link>
             </li>
             <li className='sidebar-list-item'>
                 <Link to="/">
-                    <BsPeopleFill className='icon'/> Sign out
+                    <BsPeopleFill className='icon'/> Se déconnecter
                 </Link>
             </li>
         </ul>

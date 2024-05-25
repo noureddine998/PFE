@@ -34,13 +34,13 @@ const DistrictList = () => {
     <div className="main-container">
       {/* <CreateDistrict onSubmit={handleNewDistrict} /> */}
       <div >
-      <button className='AddButtons' onClick={handleAddDistrictClick}>Add District</button>        <table className= "content-table">
+      <button className='AddButtons' onClick={handleAddDistrictClick}>Ajouter une circonscription électorale</button>        <table className= "content-table">
         <thead>
             <tr>
-              <th>District Type</th>
-              <th>District Name</th>
-              <th>Seats To Win</th>
-              <th>Number of Voters</th>
+            <th>Type de circonscription électorale</th>
+            <th>Nom de la circonscription électorale</th>
+            <th>Sièges gagnés</th>
+              <th>Nombre d'électeurs</th>
             </tr>
           </thead>
           <tbody>

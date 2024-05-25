@@ -138,16 +138,16 @@ function VotingPage() {
                     <Navbar></Navbar>
                 </div>
             </header>
-            <h1>Local District Candidates</h1>
+            <h1>Candidats de la Circonscription Électorale Locale</h1>
             <table className="district-table">
                 <thead>
                     <tr>
-                        <th>Party logo</th>
-                        <th>Party</th>
-                        <th>Name</th>
-                        <th>District</th>
-                        <th>Action</th>
-                        <th>Vote count</th>
+                        <th>Logo du parti politique</th>
+                        <th>Parti politique</th>
+                        <th>Nome et prénom</th>
+                        <th>Circonscription électorale</th>
+                        <th>Vote</th>
+                        <th>Nombre de vote</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -163,16 +163,16 @@ function VotingPage() {
                     ))}
                 </tbody>
             </table>
-            <h1>Regional Candidates</h1>
+            <h1>Candidats de la Circonscription Électorale Locale</h1>
             <table className="district-table">
                 <thead>
                     <tr>
-                        <th>Party logo</th>
-                        <th>Party Name</th>
-                        <th>Name</th>
-                        <th>Region</th>
-                        <th>Action</th>
-                        <th>Vote count</th>
+                    <th>Logo du parti politique</th>
+                        <th>Parti politique</th>
+                        <th>Nome et prénom</th>
+                        <th>Circonscription électorale</th>
+                        <th>Vote</th>
+                        <th>Nombre de vote</th>
                     </tr>
                 </thead>
                 <tbody>

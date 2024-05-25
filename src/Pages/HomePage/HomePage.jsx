@@ -21,8 +21,8 @@ const HomePage = () => {
       </header>
       <div className="rightside">
       <h1>VOTE!</h1>
-        <p> LET YOUR VOICE BE HEARD! </p>
-        <Link to="Login"><button>USER SIGN-UP/LOGIN</button></Link>
+        <p>FAIS ENTENDRE TA VOIX!</p>
+        <Link to="Login"><button>INSCRIPTION/CONNEXION UTILISATEUR</button></Link>
       </div>
     </div>
   );
