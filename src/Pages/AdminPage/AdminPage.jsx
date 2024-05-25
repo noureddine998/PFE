@@ -47,6 +47,7 @@ function AdminPage() {
         }
     };
 
+
     const allocateSeats = async () => {
         try {
             await axiosClient.get('/sanctum/csrf-cookie');
@@ -62,6 +63,22 @@ function AdminPage() {
         }
     };
 
+    const endElection = async () => {
+        await allocateSeats();
+        try {
+            if (contract) {
+                await contract.endElection();
+                alert("Election Ended successfully!");
+            } else {
+                alert("Contract is not initialized properly.");
+            }
+        } catch (error) {
+            console.error("Error starting election:", error);
+            alert("Failed to end the election.");
+        }
+    };
+
+
     return (
         <div className="grid-container">
            <Header OpenSidebar={OpenSidebar}/>
@@ -70,8 +87,8 @@ function AdminPage() {
             <div className="ss">
            
         </div>
-            <button onClick={startElection}>Start Election</button>
-            <button onClick={allocateSeats}>Allocate Seats to Candidates</button>
+            <button className="buttonsEndStart" onClick={startElection}>Start Election</button>
+            <button className="buttonsEndStart" onClick={endElection}>End Election</button>
             {/* Add other admin functionalities here */}
         </div>
     );

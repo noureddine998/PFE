@@ -17,8 +17,30 @@
   position: relative;
 }
 
-.grid-container button{
-  height: 50px; ;
+.buttonsEndStart{
+  font-size: 25px;
+  height: 50px;
+  margin-top: 180px;
+  margin-left: -95px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50px;
+  border-style: solid;
+
 }
+
+.grid-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 260px;
+  width: 81%;
+  height: 100%;
+  background-image: url('../../../public/backgrounds/6.png');
+  background-size: cover; /* This sets the height of the background image */
+  filter: blur(3px); /* Adjust the blur intensity as needed */
+  z-index: -1; /* Ensure the blur overlay is behind the content */
+}
+
 
 /* Additional styles for form elements and buttons within .create-district-container */

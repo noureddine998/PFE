@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
+import HomePage from './Pages/HomePage/HomePage';
 import SeatsWonByPartyChart from './components/StatisticsComponents/SeatsWonByPartyChart';
 import AdminPage from './Pages/AdminPage/AdminPage';
  import AdminAddCandidate from "./components/adminAddCandidate/AdminAddCandidate";
- import HomePage from './Pages/HomePage/HomePage';
+
  import AdminLogin from "./components/AdminLogin/AdminLogin";
  import CreateDistrict from './components/CreateDistrict/CreateDistrict';
 import DistrictsPage from './Pages/DistrictList/DistrictList';

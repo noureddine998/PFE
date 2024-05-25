@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./style.module.css";
 import axios from 'axios';
+import { ethers } from 'ethers';
+import { contractAddress, contractAbi } from '../../../api/constant';
 import { useNavigate } from 'react-router-dom';
 import { axiosClient } from "../../../api/axios";
 
@@ -54,6 +56,19 @@ const regionDistrictMap = {
   "Dakhla-Oued Ed-Dahab": ["Oued Ed-Dahab"]
 };
 
+const calculateAge = (birthDate) => {
+  const birth = new Date(birthDate);
+  const today = new Date();
+  let age = today.getFullYear() - birth.getFullYear();
+  const monthDiff = today.getMonth() - birth.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--;
+  }
+
+  return age;
+};
+
 const Signup = ({ toggleSignUp }) => {
   const [formData, setFormData] = useState({
     firstName: '',
@@ -96,7 +111,9 @@ const Signup = ({ toggleSignUp }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
+
     try {
+      axiosClient.get('/sanctum/csrf-cookie');
       const response = await axiosClient.post('api/check-eligibility', {
         cin: formData.cin,
         phone: formData.phone,
@@ -130,6 +147,27 @@ const Signup = ({ toggleSignUp }) => {
     localDistrict: formData.localDistrict
   };
 
+  const handleVoterRegistration = async (age, cin, region, localDistrict) => {
+    try {
+        if (!window.ethereum) {
+            alert("MetaMask is not installed. Please install it to use this app.");
+            return;
+        }
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+
+        const tx = await contract.voterRegistration(age, cin, region, localDistrict);
+        await tx.wait(); // Wait for the transaction to be mined
+        return tx; // Return transaction details
+    } catch (error) {
+        console.error("Error registering voter:", error);
+        throw new Error(`Failed to register voter: ${error.message}`);
+    }
+};
+
+
   const handleTwoFactorSubmit = async (event) => {
     event.preventDefault();
 
@@ -139,12 +177,19 @@ const Signup = ({ toggleSignUp }) => {
     }
 
     try {
+
+      const age = calculateAge(formData.birthDate);
+      await handleVoterRegistration(age, formData.cin, formData.region, formData.localDistrict);
+
       await axiosClient.get('/sanctum/csrf-cookie');
       axiosClient.post('api/register', jsonFormData, {
         headers: {
           'Content-Type': 'application/json'
         }
         });
+
+        
+
       alert('User registered successfully!');
       navigate('/login');
     } catch (error) {
