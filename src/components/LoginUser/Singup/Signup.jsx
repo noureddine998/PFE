@@ -335,7 +335,8 @@ const Signup = ({ toggleSignUp }) => {
                 onChange={handleInputChange}
                 required
               />
-              <button type="submit" id="signup-submit" style={{ width: "15%" }}>
+              <button type="submit" id="signup-submit" >
+
                 <h3>S'inscrire</h3>
               </button>
             </form>
@@ -356,7 +357,7 @@ const Signup = ({ toggleSignUp }) => {
               </button>
             </form>
           )}
-          <p>Already have an account? <Link to="/login">Log in</Link></p>
+          {/* <p>Already have an account? <Link to="/login">Log in</Link></p> */}
         </div>
       </div>
     </div>

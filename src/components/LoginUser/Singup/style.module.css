@@ -75,14 +75,26 @@ form input[type=text], form input[type=email], form select, form input[type=numb
 form input[type=tel],form input[type=password]
 {
 	width: 80%;
+	height: 5vh;
 	padding: 10px;
     margin-top: 0.5em;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
+	border: none;
+  border-bottom: 1px solid #00cc0a;
+  border-left: 1px solid #00cc0a;
+  border-right: 1px solid #00cc0a;
+  padding: 0 10px;
+  color: #727272;
+  font-size: 15px;
+  vertical-align: baseline;
 }
 form input[type=radio]{
 	margin: 4px;
+}
+form input[type=submit]{
+	margin-left: 1px;
 }
 .genderSelection {
 	display: flex;
@@ -134,4 +146,7 @@ form input[type=radio]{
 }
 .signup{
 	width: 15%;
+}
+#signup-submit{
+	margin-left: 1px;
 }
