@@ -142,9 +142,9 @@ function VotingPage() {
             <table className="district-table">
                 <thead>
                     <tr>
-                        <th>Logo du parti politique</th>
+                        <th></th>
                         <th>Parti politique</th>
-                        <th>Nome et prénom</th>
+                        <th>Candidat</th>
                         <th>Circonscription électorale</th>
                         <th>Vote</th>
                         <th>Nombre de vote</th>
@@ -167,9 +167,9 @@ function VotingPage() {
             <table className="district-table">
                 <thead>
                     <tr>
-                    <th>Logo du parti politique</th>
+                    <th></th>
                         <th>Parti politique</th>
-                        <th>Nome et prénom</th>
+                        <th>Candidat</th>
                         <th>Circonscription électorale</th>
                         <th>Vote</th>
                         <th>Nombre de vote</th>

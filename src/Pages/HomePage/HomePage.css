@@ -186,6 +186,8 @@ button:hover {
   background: linear-gradient(57deg, #217959, #057705);
 }
 
+
+
 @media (max-width: 768px) {
   .home-page-container {
     flex-direction: column;

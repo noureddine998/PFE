@@ -15,14 +15,14 @@ const HomePage = () => {
         </nav>
         <section>
           <div className="leftside">
-            
+            {/* <p className="voteQuote">Le vote est un droit personnel et un devoir national.</p> */}
           </div>
         </section>
       </header>
       <div className="rightside">
-      <h1>VOTE!</h1>
-        <p>FAIS ENTENDRE TA VOIX!</p>
-        <Link to="Login"><button>INSCRIPTION/CONNEXION UTILISATEUR</button></Link>
+      <h1>VOTE</h1>
+        <p>FAIS ENTENDRE TA VOIX</p>
+        <Link to="Login"><button>INSCRIPTION / CONNEXION</button></Link>
       </div>
     </div>
   );

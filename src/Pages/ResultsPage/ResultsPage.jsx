@@ -112,15 +112,15 @@ function ResultsPage() {
                 </div>
             </header>
             <div className='resultsSearch'>
-            <h1>Election results</h1>
+            <h1 className="Headerz">Les résultats des élections</h1>
             <select id="region" name="region" value={formData.region} onChange={handleInputChange} required>
-                <option value="">Select a region</option>  {/* Placeholder option */}
+                <option value="">Sélectionnez une région</option>  {/* Placeholder option */}
                 {regions.map((region, index) => (
                     <option key={index} value={region}>{region}</option>
                 ))}
             </select>
             <select id="local-district" name="localDistrict" value={formData.localDistrict} onChange={handleInputChange} required disabled={!formData.region}>
-                <option value="">Select a district</option>  {/* Placeholder option */}
+                <option value="">Sélectionnez une circonscription électorale</option>  {/* Placeholder option */}
                 {filteredDistricts.map((district, index) => (
                     <option key={index} value={district}>{district}</option>
                 ))}
@@ -129,16 +129,16 @@ function ResultsPage() {
             </div>
             {showTables && (
                 <>
-                    <h1>Local District Candidates</h1>
+                    <h1>Candidats de la Circonscription Électorale Locale</h1>
                     <table className="district-table">
                         <thead>
                             <tr>
-                                <th>Party logo</th>
-                                <th>Party</th>
-                                <th>Name</th>
-                                <th>District</th>
-                                <th>Vote count</th>
-                                <th>Seats Won</th>
+                            <th></th>
+                            <th>Parti politique</th>
+                            <th>Candidat</th>
+                            <th>Circonscription électorale</th>
+                            <th>Nombre de vote</th>
+                            <th>Sièges gagnés</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -159,12 +159,12 @@ function ResultsPage() {
                     <table className="district-table">
                         <thead>
                             <tr>
-                                <th>Party logo</th>
-                                <th>Party Name</th>
-                                <th>Name</th>
-                                <th>Region</th>
-                                <th>Vote count</th>
-                                <th>Seats Won</th>
+                            <th></th>
+                            <th>Parti politique</th>
+                            <th>Candidat</th>
+                            <th>Circonscription électorale</th>
+                            <th>Nombre de vote</th>
+                            <th>Sièges gagnés</th>
                             </tr>
                         </thead>
                         <tbody>

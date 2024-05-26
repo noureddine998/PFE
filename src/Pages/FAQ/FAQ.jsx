@@ -23,7 +23,7 @@ const FAQItem = ({ question, answer }) => {
 const FAQPage = () => {
     const faqs = [
         { question: "Qui peut voter aux élections législatives ?", answer: "Tout citoyen marocain âgé de plus de 18 ans inscrit sur les listes électorales." },
-        { question: "Comment sont élus les députés ?", answer: "Les députés sont élus au suffrage universel direct dans le cadre de circonscriptions législatives." },
+        { question: "Quelles sont les conditions de candidature ?", answer: "Les députés sont élus au suffrage universel direct dans le cadre de circonscriptions législatives." },
         { question: "Quel est le rôle d'un député ?", answer: "Les députés représentent le peuple français, participent à la législation et au contrôle du gouvernement." },
         { question: "Combien de temps dure le mandat d'un député ?", answer: "Le mandat d'un député dure cinq ans." },
         { question: "Comment puis-je voter si je suis à l'étranger ?", answer: "Les citoyens marocain résidant à l'étranger peuvent voter par correspondance ou dans les ambassades et consulats." }

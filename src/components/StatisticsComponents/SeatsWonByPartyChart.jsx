@@ -14,7 +14,8 @@ const SeatsWonByPartyChart = () => {
         "Parti du Progrès et du Socialisme (PPS)": "PPS",
         "Rassemblement National des Indépendants (RNI)": "RNI",
         "Union Constitutionnelle (UC)": "UC",
-        "Union Socialiste des Forces Populaires (USFP)": "USFP"
+        "Union Socialiste des Forces Populaires (USFP)": "USFP",
+        "Fédération de la Gauche Démocratique (FGD)": "FGD"
     };
 
     const fetchData = async () => {
