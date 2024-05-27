@@ -10,8 +10,8 @@ const VotingPercentageChart = () => {
             .then(response => {
                 const votingPercentage = response.data['Voting Percentage'];
                 setData([
-                    { name: 'Voted', value: votingPercentage },
-                    { name: 'Did Not Vote', value: 100 - votingPercentage }
+                    { name: 'Voté', value: votingPercentage },
+                    { name: 'n\'a pas voté', value: 100 - votingPercentage }
                 ]);
             })
             .catch(error => console.log(error));

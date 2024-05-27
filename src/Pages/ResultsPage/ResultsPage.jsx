@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { axiosClient } from '../../api/axios';
+import { ethers } from 'ethers';
 import './ResultsPage.css';
 import RNI from './logos/RNI.jpg'; 
 import PJD from './logos/PJD.jpg';
@@ -14,6 +15,7 @@ import FFD from './logos/FFD.jpg';
 import FGD from './logos/FGD.jpg';
 import banner from './logos/maroc.png';
 import Navbar from '../../components/Navbar/Navbar';
+import { contractAbi,contractAddress } from '../../api/constant';
 
 export const regions = [
   "Tanger-Tétouan-Al Hoceïma",
@@ -77,6 +79,7 @@ function ResultsPage() {
     };
 
     const fetchCandidates = (district_type, district_name) => {
+
         axiosClient.get(`/api/candidates/${district_type}/${district_name}`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`
@@ -95,9 +98,26 @@ function ResultsPage() {
             });
     };
 
-    const handleSearch = () => {
+    const handleSearch = async () => {
+
+        if (!window.ethereum) {
+            console.error("Metamask not detected");
+            return;
+        }
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = provider.getSigner();
+        const contract = new ethers.Contract(contractAddress, contractAbi, signer);
+
+        try {
+            const [regionCands, localDistrictCands] = await contract.getCandidates(formData.region, formData.localDistrict);
+        } catch (error) {
+            console.error("Error fetching candidates:", error);
+        }
+
         fetchCandidates('local', formData.localDistrict);
         fetchCandidates('regional', formData.region);
+
     };
 
     // Sort candidates by seats won in descending order before rendering

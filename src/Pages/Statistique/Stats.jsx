@@ -18,13 +18,13 @@ function Stats() {
             <div className='bigContainer'>
             <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Genre</h1>
+                    <h1>Répartition des élus selon le sexe</h1>
                 <CandidateGenderChart/>
                 </div>
            </div>
            <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Sièges gagnés</h1>
+                    <h1>Répartition des sièges selon les partis politiques</h1>
                 <SeatsWonByPartyChart/>
                 </div>
            </div>
@@ -32,13 +32,13 @@ function Stats() {
            <div className='bigContainer'>
            <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Age</h1>
+                    <h1>Répartition des élus selon les tranches d'âge</h1>
                 <AgeDistributionChart/>
                 </div>
            </div>
            <div className='statsContainer'>
                 <div className='chart'>
-                    <h1>Vote</h1>
+                    <h1>Taux de participation</h1>
                 <VotingPercentageChart/>
                 </div>
            </div>

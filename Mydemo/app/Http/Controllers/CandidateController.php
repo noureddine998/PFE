@@ -166,7 +166,7 @@ public function getSeatsWonByParty()
 
 public function getVotingPercentage()
 {
-    $totalUsers = User::count();
+    $totalUsers = 30000;
     $totalVotes = Candidate::sum('voteCount');
 
     if ($totalVotes == 0) { // Prevent division by zero

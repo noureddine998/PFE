@@ -353,7 +353,7 @@ const Signup = ({ toggleSignUp }) => {
                 onChange={handleTwoFactorChange}
                 required
               />
-              <button type="submit" id="verify-code" style={{ width: "15%" }}>
+              <button type="submit" id="verify-code" style={{ width: "25%" }}>
                 <h3>Verify</h3>
               </button>
             </form>

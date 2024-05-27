@@ -1,4 +1,4 @@
-export const contractAddress = "0xAA765C07D5b59df4eE209a3839299F6f4F929893"
+export const contractAddress = "0x92D8122CEA6bAEC687895Bc8Dc8b2E6056762426"
 
 export const contractAbi = [
   {
@@ -187,6 +187,99 @@ export const contractAbi = [
     "inputs": [
       {
         "internalType": "string",
+        "name": "regionName",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "localDistrictName",
+        "type": "string"
+      }
+    ],
+    "name": "getCandidates",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "fullName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "age",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum MoroccanElections.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "party",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "voteCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "seatsWon",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct MoroccanElections.Candidate[]",
+        "name": "",
+        "type": "tuple[]"
+      },
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "fullName",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "age",
+            "type": "uint256"
+          },
+          {
+            "internalType": "enum MoroccanElections.Gender",
+            "name": "gender",
+            "type": "uint8"
+          },
+          {
+            "internalType": "string",
+            "name": "party",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "voteCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "seatsWon",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct MoroccanElections.Candidate[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
         "name": "districtName",
         "type": "string"
       },
@@ -278,6 +371,25 @@ export const contractAbi = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "localDistrictNames",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "string",
         "name": "",
         "type": "string"
@@ -304,6 +416,25 @@ export const contractAbi = [
         "internalType": "uint256",
         "name": "numberOfVoters",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "regionalDistrictNames",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",

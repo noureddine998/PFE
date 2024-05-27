@@ -53,13 +53,13 @@ const CandidatesList = () => {
         </datalist>
       </div> */}
       <div>
-        <button className='AddButtons' onClick={handleAddCandidateClick}>Ajouter une candidate</button>
+        <button className='AddButtons' onClick={handleAddCandidateClick}>Ajouter un candidat</button>
         <table className="content-table">
           <thead>
             <tr>
-              <th>Nom et prénom</th>
+              <th>Candidat</th>
               <th>Age</th>
-              <th>Genre</th>
+              <th>Sexe</th>
               <th>Parti politique</th>
               <th>Type de circonscription électorale</th>
               <th>Nom de la circonscription électorale</th>

@@ -39,7 +39,7 @@ const DistrictList = () => {
             <tr>
             <th>Type de circonscription électorale</th>
             <th>Nom de la circonscription électorale</th>
-            <th>Sièges gagnés</th>
+            <th>Sièges</th>
               <th>Nombre d'électeurs</th>
             </tr>
           </thead>

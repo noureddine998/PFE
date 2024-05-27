@@ -89,10 +89,10 @@ function VotingPage() {
             });
     };
 
-    const voteLocal = async (candidateId) => {
+    const voteLocal = async (candidateId,candidateName) => {
         try {
             // Call the voteLocal function of the contract
-           await contract.voteLocal(candidateId, 0, userPreferences.localDistrict);
+           await contract.voteLocal(candidateName, userPreferences.localDistrict);
 
             // API call to increment the vote count in the database
             await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
@@ -103,17 +103,17 @@ function VotingPage() {
 
             // Refresh the list of local candidates after voting
             fetchCandidates('local', userPreferences.localDistrict);
-            alert(`Voted for candidate with ID ${candidateId} in local district ${userPreferences.localDistrict}`);
+            alert(`Voted for candidate : ${candidateName} in local district ${userPreferences.localDistrict}`);
         } catch (error) {
             console.error('Error voting locally:', error);
             alert('Failed to vote locally.');
         }
     };
 
-    const voteRegional = async (candidateId) => {
+    const voteRegional = async (candidateId,candidateName) => {
         try {
             // Call the voteRegional function of the contract
-           await contract.voteRegional(candidateId, 1, userPreferences.region);
+           await contract.voteRegional(candidateName, userPreferences.region);
 
             // API call to increment the vote count in the database
             await axiosClient.post(`/api/candidates/${candidateId}/vote`, null, {
@@ -124,7 +124,7 @@ function VotingPage() {
 
             // Refresh the list of regional candidates after voting
             fetchCandidates('regional', userPreferences.region);
-            alert(`Voted for candidate with ID ${candidateId} in regional district ${userPreferences.region}`);
+            alert(`Voted for candidate : ${candidateName} in regional district ${userPreferences.region}`);
         } catch (error) {
             console.error('Error voting regionally:', error);
             alert('Failed to vote regionally.');
@@ -157,13 +157,13 @@ function VotingPage() {
                             <td>{candidate.party}</td>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
-                            <td><button onClick={() => voteLocal(candidate.id)} className='voteLocal'>Vote</button></td>
+                            <td><button onClick={() => voteLocal(candidate.id,candidate.full_name)} className='voteLocal'>Vote</button></td>
                             <td>{candidate.voteCount}</td>
                         </tr>
                     ))}
                 </tbody>
             </table>
-            <h1>Candidats de la Circonscription Électorale Locale</h1>
+            <h1>Candidats de la Circonscription Électorale Régional</h1>
             <table className="district-table">
                 <thead>
                     <tr>
@@ -182,7 +182,7 @@ function VotingPage() {
                             <td>{candidate.party}</td>
                             <td>{candidate.full_name}</td>
                             <td>{candidate.district_name}</td>
-                            <td><button onClick={() => voteRegional(candidate.id)} className='voteRegional'>Vote</button></td>
+                            <td><button onClick={() => voteRegional(candidate.id,candidate.full_name)} className='voteRegional'>Vote</button></td>
                             <td>{candidate.voteCount}</td>
                         </tr>
                     ))}

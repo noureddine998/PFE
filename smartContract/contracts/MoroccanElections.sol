@@ -221,4 +221,8 @@ contract MoroccanElections {
         Candidate memory candidate = district.candidates[candidateFullName];
         return (candidate.fullName, candidate.age, candidate.gender, candidate.party, candidate.voteCount, candidate.seatsWon);
     }
+
+    function getCandidates(string memory regionName, string memory localDistrictName) public view returns (Candidate[] memory, Candidate[] memory) {
+        return (regionalDistricts[regionName].candidatesTable, localDistricts[localDistrictName].candidatesTable);
+    }
 }
