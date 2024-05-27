@@ -95,6 +95,8 @@ function AddCandidateForm() {
     const districtOptions = districtType === '0' ? constituencies : regions;
 
     return (
+    <div>
+    <h2>Add Candidate</h2>
         <form onSubmit={handleSubmit} className={styles.formcontainer}>
             <label>
                 Full Name:
@@ -135,7 +137,7 @@ function AddCandidateForm() {
                 </select>
             </label>
             <button type="submit">Add Candidate</button>
-        </form>
+        </form></div>
     );
 }
 
