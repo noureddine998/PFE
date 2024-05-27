@@ -6,6 +6,7 @@ import { ethers } from 'ethers';
 import { contractAddress, contractAbi } from '../../../api/constant';
 import { useNavigate } from 'react-router-dom';
 import { axiosClient } from "../../../api/axios";
+import Navbar from "../../Navbar/Navbar";
 
 export const constituencies = [
   "Agadir-Ida-Ou-Tanane", "Aïn Chock (Casablanca)", "Al Fida - Mers Sultan (Casablanca)", "Al Hoceïma",
@@ -198,7 +199,7 @@ const Signup = ({ toggleSignUp }) => {
     }
   };
 
-  return (
+  return (<div><Navbar/>
     <div className={styles.signup_container}>
       <div className={styles.signup_form_container}>
         <div className={styles.left}>
@@ -360,7 +361,7 @@ const Signup = ({ toggleSignUp }) => {
           {/* <p>Already have an account? <Link to="/login">Log in</Link></p> */}
         </div>
       </div>
-    </div>
+    </div></div>
   );
 };
 

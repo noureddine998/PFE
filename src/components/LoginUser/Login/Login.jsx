@@ -4,6 +4,8 @@ import styles from "./style.module.css";
 import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../Singup/Signup';
 import { axiosClient } from "../../../api/axios";
+import Navbar from "../../Navbar/Navbar";
+
 const Login = () => {
 	const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,8 +43,9 @@ const Login = () => {
   };
 
 
-	return (
+	return (<div><Navbar/>
 		<div className={styles.login_container}>
+			
 			<div className={styles.login_form_container}>
 				<div className={styles.left}>
 					<form className={styles.form_container} onSubmit={handleLogin}>
@@ -78,7 +81,7 @@ const Login = () => {
 					</Link>
 				</div>
 			</div>
-		</div>
+		</div></div>
 	);
 };
 
