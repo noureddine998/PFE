@@ -56,7 +56,7 @@ function AdminPage() {
                     'Authorization': `Bearer ${localStorage.getItem('authToken')}`
                 }
             });
-            alert(response.data.message);
+           // alert(response.data.message);
         } catch (error) {
             console.error("Error allocating seats:", error);
             alert("Failed to allocate seats.");
@@ -68,7 +68,7 @@ function AdminPage() {
         try {
             if (contract) {
                 await contract.endElection();
-                alert("Election Ended successfully!");
+                alert("Seats successfully allocated");
             } else {
                 alert("Contract is not initialized properly.");
             }
